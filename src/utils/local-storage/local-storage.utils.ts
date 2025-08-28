@@ -3,6 +3,7 @@ export type LocalStorageKeys = {
     metamobApiKey: string;
     metamobUniqueId: string;
     monsterSort: string;
+    ocreAmount: string;
 };
 
 type LocalStorageItem = {
