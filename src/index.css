@@ -86,12 +86,3 @@ button {
         background-color: var(--primary-light);
     }
 }
-
-input {
-    font-size: 1rem;
-    border: 1px solid var(--primary-dark);
-    padding: 0.2rem;
-    outline-color: var(--tertiary);
-    color: black;
-    border-radius: 5px;
-}

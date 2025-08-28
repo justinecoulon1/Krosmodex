@@ -1,6 +1,7 @@
 import styles from './settings-page.module.css';
 import { getLocalStorageItem, setLocalStorageItem } from '../../utils/local-storage/local-storage.utils';
 import { useState } from 'react';
+import { CustomTextInput } from '../custom-components/custom-inputs';
 
 export default function SettingsPageContainer() {
     const [metamobName, setMetamobName] = useState(getLocalStorageItem('metamobName') ?? '');
@@ -12,8 +13,7 @@ export default function SettingsPageContainer() {
             <div className={styles.metamobSettings}>
                 <h1 className="text-5xl">Configuration Metamob</h1>
                 <label htmlFor="">Pseudo métamob</label>
-                <input
-                    type="text"
+                <CustomTextInput
                     value={metamobName}
                     onChange={(e) => {
                         setMetamobName(e.target.value);
@@ -22,8 +22,7 @@ export default function SettingsPageContainer() {
                 />
 
                 <label htmlFor="">Clé API</label>
-                <input
-                    type="text"
+                <CustomTextInput
                     value={metamobApiKey}
                     onChange={(e) => {
                         setMetamobApiKey(e.target.value);
@@ -32,8 +31,7 @@ export default function SettingsPageContainer() {
                 />
 
                 <label htmlFor="">Identifiant unique</label>
-                <input
-                    type="text"
+                <CustomTextInput
                     value={metamobUniqueId}
                     onChange={(e) => {
                         setMetamobUniqueId(e.target.value);

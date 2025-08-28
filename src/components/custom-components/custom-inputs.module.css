@@ -1,0 +1,17 @@
+.customNumberInput {
+    font-size: 1rem;
+    border: 1px solid var(--primary-dark);
+    padding: 0.2rem;
+    outline-color: var(--tertiary);
+    color: black;
+    border-radius: 5px;
+}
+
+.customTextInput {
+    font-size: 1rem;
+    border: 1px solid var(--primary-dark);
+    padding: 0.2rem;
+    outline-color: var(--tertiary);
+    color: black;
+    border-radius: 5px;
+}

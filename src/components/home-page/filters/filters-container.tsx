@@ -11,7 +11,7 @@ import {
 } from './filters';
 import { Filter } from './filter-component';
 import { normalizeString } from '../../../utils/string.utils';
-import { CustomNumberInput } from '../../custom-components/custom-inputs';
+import { CustomNumberInput, CustomTextInput } from '../../custom-components/custom-inputs';
 
 export default function FiltersContainer({
     allMonsters,
@@ -48,7 +48,7 @@ export default function FiltersContainer({
                     <label className={styles.filterLabel} htmlFor="name-search-bar">
                         Nom du monstre :
                     </label>
-                    <input
+                    <CustomTextInput
                         name="name-search-bar"
                         id="name-search-bar"
                         type="text"
