@@ -1,0 +1,45 @@
+.monsterCard {
+    width: 14rem;
+    height: 14rem;
+    background-color: var(--primary-dark);
+    border: solid 2px var(--primary-light);
+    user-select: none;
+
+    .monsterCardTitle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 0.3rem;
+        gap: 0.5rem;
+
+        border-bottom: var(--primary-light) solid 2px;
+
+        .monsterTypeIcon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 1.5rem;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            padding: 0.2rem;
+        }
+
+        .monstre {
+            background: radial-gradient(circle closest-side, dodgerblue 85%, var(--primary) 95%);
+        }
+        .archimonstre {
+            background: radial-gradient(circle closest-side, orange 85%, var(--primary) 95%);
+        }
+        .boss {
+            background: radial-gradient(circle closest-side, indianred 95%, var(--primary) 95%);
+        }
+
+        .monsterName {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}

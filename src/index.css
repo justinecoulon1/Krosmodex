@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Electrolize&display=swap');
+
+:root {
+    --primary-darker: #212125;
+    --primary-dark: #2d2e33;
+    --primary: #393b41;
+    --primary-light: #41444b;
+    --primary-lighter: #a3a7ac;
+
+    --secondary: #e1e1e1;
+    --secondary-light: #f5fafb;
+
+    --tertiary: #ffa500;
+
+    --text-primary: black;
+    --text-secondary: #f7fdff;
+
+    --header-height: 4rem;
+}
+
+.electrolize-regular {
+    font-family: 'Electrolize', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'microstyle';
+    src: url('/fonts/microstyle-att.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'OCRA';
+    src: url('/fonts/OCRA.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    color: var(--text-secondary);
+    font-family: 'Electrolize';
+}
+
+body {
+    font-family: 'Electrolize';
+    max-width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    font-size: 1rem;
+    overflow-y: hidden;
+
+    background-color: var(--primary-dark);
+}
+
+* ::-webkit-scrollbar {
+    width: 10px;
+}
+
+* ::-webkit-scrollbar-track {
+    background-color: var(--primary-dark);
+    border-radius: 0 0 1rem 0;
+}
+
+* ::-webkit-scrollbar-thumb {
+    background-color: var(--primary-light);
+    border: 1px solid var(--primary-dark);
+    border-radius: 1rem;
+}
+
+button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary);
+    padding: 0.3rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--primary-light);
+    }
+}
+
+input {
+    font-size: 1rem;
+    border: 1px solid var(--primary-dark);
+    padding: 0.2rem;
+    outline-color: var(--tertiary);
+    color: black;
+    border-radius: 5px;
+}

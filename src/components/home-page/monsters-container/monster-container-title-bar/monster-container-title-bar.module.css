@@ -1,0 +1,25 @@
+.monsterContainerTitleBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--primary-light);
+    width: 100%;
+    height: 3rem;
+    flex-shrink: 0;
+    padding: 0 1rem;
+
+    .monsterContainerTitleBarButtons {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        button {
+            background-color: var(--primary-dark);
+            height: 2rem;
+            width: 2rem;
+        }
+        .selected {
+            background-color: var(--primary-light);
+        }
+    }
+}
