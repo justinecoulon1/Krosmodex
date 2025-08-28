@@ -9,23 +9,36 @@ export type CustomNumberInputProps = React.DetailedHTMLProps<
     customStyle?: string;
 };
 
-export function CustomNumberInput({ emptyDefaultValue = 0, customStyle, ...props }: CustomNumberInputProps) {
+export function CustomNumberInput({
+    emptyDefaultValue = 0,
+    customStyle,
+    onFocus,
+    onBlur,
+    ...props
+}: CustomNumberInputProps) {
     return (
         <input
             {...props}
+            type="number"
             className={classNames(styles.customNumberInput, customStyle)}
             onFocus={(e) => {
-                if (e.target.value === '0') {
-                    if (props.onChange) {
+                if (props.onChange) {
+                    if (e.target.value === '0') {
                         e.target.value = '';
                         props.onChange(e);
                     }
+                }
+                if (onFocus) {
+                    onFocus(e);
                 }
             }}
             onBlur={(e) => {
                 if (props.onChange) {
                     e.target.value = e.target.value || emptyDefaultValue?.toString();
                     props.onChange(e);
+                }
+                if (onBlur) {
+                    onBlur(e);
                 }
             }}
         />

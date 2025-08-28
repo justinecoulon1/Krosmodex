@@ -1,16 +1,17 @@
 .monsterCard {
     width: 14rem;
-    height: 14rem;
+    height: 16rem;
     background-color: var(--primary-dark);
     border: solid 2px var(--primary-light);
     user-select: none;
 
-    .monsterCardTitle {
+    .monsterCardTitleContainer {
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding: 0.5rem 0.3rem;
         gap: 0.5rem;
+        height: 3rem;
 
         border-bottom: var(--primary-light) solid 2px;
 
@@ -40,6 +41,38 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+    }
+
+    .monsterImageContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 8rem;
+        width: 14rem;
+        padding: 1rem;
+
+        .monsterImage {
+            height: 6rem;
+            object-fit: contain;
+        }
+    }
+
+    .monsterCardAmountSelectorContainer {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        .amountButtons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 1.8rem;
+            aspect-ratio: 1;
+        }
+
+        .monsterAmountInput {
+            width: 3rem;
         }
     }
 }
