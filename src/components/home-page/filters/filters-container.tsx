@@ -4,14 +4,14 @@ import { MetamobMonsterDto } from '../../../utils/api/dto/metamob.dto';
 import {
     matchesMonsterType,
     matchesSearchStatus,
+    MonsterStatusKey,
     monsterTypeFilterOptions,
     MonsterTypeKey,
     searchStatusFilterOptions,
-    SearchStatusKey,
 } from './filters';
 import { Filter } from './filter-component';
-import { normalizeString } from '../../../utils/string.utils';
 import { CustomNumberInput, CustomTextInput } from '../../custom-components/custom-inputs';
+import { normalizeString } from '../../../utils/string.utils';
 
 export default function FiltersContainer({
     allMonsters,
@@ -35,7 +35,8 @@ export default function FiltersContainer({
                     (monster) =>
                         !searchedMonsterName ||
                         normalizeString(monster.nom).includes(normalizeString(searchedMonsterName)),
-                ),
+                )
+                .sort((monster1, monster2) => monster1.nom.localeCompare(monster2.nom)),
         );
     }, [allMonsters, selectedMonsterType, selectedSearchStatus, searchedMonsterName, searchedMonsterAmount]);
     return (
@@ -66,7 +67,7 @@ export default function FiltersContainer({
                     title={'Status'}
                     currentOption={selectedSearchStatus}
                     options={searchStatusFilterOptions}
-                    onOptionSelected={(optionKey) => setSelectedSearchStatus(optionKey as SearchStatusKey)}
+                    onOptionSelected={(optionKey) => setSelectedSearchStatus(optionKey as MonsterStatusKey)}
                 />
                 <div>
                     <label className={styles.filterLabel} htmlFor="amount-search-bar">

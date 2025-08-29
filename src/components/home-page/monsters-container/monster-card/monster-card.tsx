@@ -13,6 +13,7 @@ export default function MonsterCard({ monster }: { monster: MetamobMonsterDto })
                 <img src={`./${monster.type}.png`} alt={`${monster.nom} image`} className={styles.monsterImage} />
             </div>
             <MonsterCardAmountSelector monster={monster} />
+            <div className={styles.monsterStatus}>{}</div>
         </div>
     );
 }

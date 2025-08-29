@@ -1,3 +1,14 @@
+.monsterContainerTitleBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--primary-light);
+    width: 100%;
+    height: 3rem;
+    flex-shrink: 0;
+    padding: 0 1rem;
+}
+
 .monstersContainer {
     display: flex;
     flex-direction: column;
@@ -5,33 +16,12 @@
     height: 100%;
     background-color: var(--primary-darker);
     border: 2px solid var(--primary-light);
-
-    .monstersCardsContainer {
-        display: flex;
-        flex-wrap: wrap;
-        width: 100%;
-        height: 100%;
-        gap: 0.5rem;
-        padding: 1rem;
-        overflow-y: scroll;
-    }
 }
 
-.stepSortedListContainer {
+.monsterCardGridContainer {
+    justify-content: center;
+    flex-wrap: wrap;
     display: flex;
-    flex-direction: column;
-
-    gap: 1.5rem;
-
-    .stepContainer {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-
-        .cardListContainer {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-    }
+    gap: 0.5rem;
+    padding: 1rem;
 }

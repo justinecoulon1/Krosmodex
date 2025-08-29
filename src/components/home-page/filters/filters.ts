@@ -1,12 +1,13 @@
 import { MetamobMonsterDto } from '../../../utils/api/dto/metamob.dto';
+import { MonsterStatus, MonsterType } from '../../../model/monsters/monsters.types';
+import { getMonsterStatus, getMonsterType } from '../../../model/monsters/monsters.utils';
 
 export type FilterOption<T> = {
     key: T;
     label: string;
 };
-
-export type MonsterTypeKey = 'all' | 'monsters' | 'archmonsters' | 'boss';
-export type SearchStatusKey = 'any' | 'searched' | 'offered' | 'none';
+export type MonsterTypeKey = 'all' | MonsterType;
+export type MonsterStatusKey = 'any' | MonsterStatus;
 
 export const monsterTypeFilterOptions: FilterOption<MonsterTypeKey>[] = [
     { key: 'all', label: 'Tous' },
@@ -15,7 +16,7 @@ export const monsterTypeFilterOptions: FilterOption<MonsterTypeKey>[] = [
     { key: 'boss', label: 'Gardiens de donjon' },
 ];
 
-export const searchStatusFilterOptions: FilterOption<SearchStatusKey>[] = [
+export const searchStatusFilterOptions: FilterOption<MonsterStatusKey>[] = [
     { key: 'any', label: 'Tous' },
     { key: 'searched', label: 'Recherché' },
     { key: 'offered', label: 'Proposé' },
@@ -26,27 +27,15 @@ export function matchesMonsterType(monster: MetamobMonsterDto, type: MonsterType
     switch (type) {
         case 'all':
             return true;
-        case 'monsters':
-            return monster.type === 'monstre';
-        case 'archmonsters':
-            return monster.type === 'archimonstre';
-        case 'boss':
-            return monster.type === 'boss';
         default:
-            return false;
+            return getMonsterType(monster) === type;
     }
 }
-export function matchesSearchStatus(monster: MetamobMonsterDto, status: SearchStatusKey) {
+export function matchesSearchStatus(monster: MetamobMonsterDto, status: MonsterStatusKey) {
     switch (status) {
         case 'any':
             return true;
-        case 'searched':
-            return monster.recherche > 0;
-        case 'none':
-            return monster.recherche === 0 && monster.propose === 0;
-        case 'offered':
-            return monster.propose > 0;
         default:
-            return false;
+            return getMonsterStatus(monster) === status;
     }
 }
