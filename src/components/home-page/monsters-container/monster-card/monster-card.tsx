@@ -4,16 +4,26 @@ import { Clipboard, Minus, Plus } from 'lucide-react';
 import classNames from 'classnames';
 import { CustomNumberInput } from '../../../custom-components/custom-inputs';
 import { useState } from 'react';
+import { getMonsterStatus } from '../../../../model/monsters/monsters.utils';
 
 export default function MonsterCard({ monster }: { monster: MetamobMonsterDto }) {
+    const monsterStatus = getMonsterStatus(monster);
     return (
         <div className={styles.monsterCard}>
             <MonsterCardTitleContainer monster={monster} />
             <div className={styles.monsterImageContainer}>
-                <img src={`./${monster.type}.png`} alt={`${monster.nom} image`} className={styles.monsterImage} />
+                <img
+                    src={`./monsters/${monster.id}.png`}
+                    alt={`${monster.nom} image`}
+                    className={styles.monsterImage}
+                />
             </div>
             <MonsterCardAmountSelector monster={monster} />
-            <div className={styles.monsterStatus}>{}</div>
+            <div className={styles.monsterStatusContainer}>
+                {monsterStatus === 'searched' && 'Recherché'}
+                {monsterStatus === 'offered' && 'Offert'}
+                {monsterStatus === 'none' && 'Aucun'}
+            </div>
         </div>
     );
 }

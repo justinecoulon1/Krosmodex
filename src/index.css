@@ -85,3 +85,25 @@ button {
         background-color: var(--primary-light);
     }
 }
+
+input[type='radio']:after {
+    width: 11px;
+    height: 11px;
+    border-radius: 11px;
+    background-color: var(--secondary-light);
+    content: '';
+    display: block;
+    visibility: visible;
+    border: 2px solid var(--secondary-light);
+}
+
+input[type='radio']:checked:after {
+    width: 11px;
+    height: 11px;
+    border-radius: 11px;
+    background-color: var(--tertiary);
+    content: '';
+    display: block;
+    visibility: visible;
+    border: 2px solid var(--secondary-light);
+}
