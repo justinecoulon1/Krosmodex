@@ -1,7 +1,7 @@
-import styles from './filters.module.css';
-import { FilterOption } from './filters';
+import styles from '../filters.module.css';
+import { FilterOption } from '../filters';
 
-export function Filter({
+export function RadioButtonFilter({
     onOptionSelected,
     currentOption,
     options,

@@ -9,9 +9,11 @@ import {
     MonsterTypeKey,
     searchStatusFilterOptions,
 } from './filters';
-import { Filter } from './filter-component';
-import { CustomNumberInput, CustomTextInput } from '../../custom-components/custom-inputs';
 import { normalizeString } from '../../../utils/string.utils';
+import { RadioButtonFilter } from './filters/radio-button-filter';
+import MonsterNameFilter from './filters/monster-name-filter';
+import AmountFilter from './filters/amount-filter';
+import StepsFilter from './filters/steps-filter';
 
 export default function FiltersContainer({
     allMonsters,
@@ -24,6 +26,8 @@ export default function FiltersContainer({
     const [selectedSearchStatus, setSelectedSearchStatus] = useState(searchStatusFilterOptions[0].key);
     const [searchedMonsterName, setSearchedMonsterName] = useState('');
     const [searchedMonsterAmount, setSearchedMonsterAmount] = useState('0');
+    const [selectedStep, setSelectedStep] = useState('0');
+
     useEffect(() => {
         const monsterAmount = searchedMonsterAmount ? parseInt(searchedMonsterAmount) : 0;
         onFilteredMonstersUpdated(
@@ -36,50 +40,44 @@ export default function FiltersContainer({
                         !searchedMonsterName ||
                         normalizeString(monster.nom).includes(normalizeString(searchedMonsterName)),
                 )
+                .filter((monster) => selectedStep === '0' || monster.etape.toString() === selectedStep)
                 .sort((monster1, monster2) => monster1.nom.localeCompare(monster2.nom)),
         );
-    }, [allMonsters, selectedMonsterType, selectedSearchStatus, searchedMonsterName, searchedMonsterAmount]);
+    }, [
+        allMonsters,
+        selectedMonsterType,
+        selectedSearchStatus,
+        searchedMonsterName,
+        searchedMonsterAmount,
+        selectedStep,
+    ]);
     return (
         <div className={styles.filters}>
             <div className={styles.filtersTitle}>
                 <h3>Filtres</h3>
             </div>
             <div className={styles.filtersContainer}>
-                <div>
-                    <label className={styles.filterLabel} htmlFor="name-search-bar">
-                        Nom du monstre :
-                    </label>
-                    <CustomTextInput
-                        name="name-search-bar"
-                        id="name-search-bar"
-                        type="text"
-                        value={searchedMonsterName}
-                        onChange={(e) => setSearchedMonsterName(e.target.value)}
-                    />
-                </div>
-                <Filter
+                <MonsterNameFilter
+                    searchedMonsterName={searchedMonsterName}
+                    onMonsterNameChange={(val) => setSearchedMonsterName(val)}
+                />
+                <RadioButtonFilter
                     title={'Type'}
                     currentOption={selectedMonsterType}
                     options={monsterTypeFilterOptions}
                     onOptionSelected={(optionKey) => setSelectedMonsterType(optionKey as MonsterTypeKey)}
                 />
-                <Filter
+                <RadioButtonFilter
                     title={'Status'}
                     currentOption={selectedSearchStatus}
                     options={searchStatusFilterOptions}
                     onOptionSelected={(optionKey) => setSelectedSearchStatus(optionKey as MonsterStatusKey)}
                 />
-                <div>
-                    <label className={styles.filterLabel} htmlFor="amount-search-bar">
-                        Quantité :
-                    </label>
-                    <CustomNumberInput
-                        name="amount-search-bar"
-                        id="amount-search-bar"
-                        value={searchedMonsterAmount}
-                        onChange={(e) => setSearchedMonsterAmount(e.target.value)}
-                    />
-                </div>
+                <AmountFilter
+                    searchedMonsterAmount={searchedMonsterAmount}
+                    onMonsterAmountChange={(val) => setSearchedMonsterAmount(val)}
+                />
+                <StepsFilter selectedStep={selectedStep} onStepChange={(step) => setSelectedStep(step)} />
             </div>
         </div>
     );
