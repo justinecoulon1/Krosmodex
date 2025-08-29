@@ -22,7 +22,7 @@ export default function FiltersContainer({
     allMonsters: MetamobMonsterDto[];
     onFilteredMonstersUpdated: (monsters: MetamobMonsterDto[]) => void;
 }) {
-    const [selectedMonsterType, setSelectedMonsterType] = useState(monsterTypeFilterOptions[0].key);
+    const [selectedMonsterType, setSelectedMonsterType] = useState(monsterTypeFilterOptions[2].key);
     const [selectedSearchStatus, setSelectedSearchStatus] = useState(searchStatusFilterOptions[0].key);
     const [searchedMonsterName, setSearchedMonsterName] = useState('');
     const [searchedMonsterAmount, setSearchedMonsterAmount] = useState('0');

@@ -7,7 +7,7 @@ export default function SettingsPageContainer() {
     const [metamobName, setMetamobName] = useState(getLocalStorageItem('metamobName') ?? '');
     const [metamobApiKey, setMetamobApiKey] = useState(getLocalStorageItem('metamobApiKey') ?? '');
     const [metamobUniqueId, setMetamobUniqueId] = useState(getLocalStorageItem('metamobUniqueId') ?? '');
-    const [ocreAmount, setOcreAmount] = useState(getLocalStorageItem('ocreAmount') ?? '1');
+    const [ocreAmount, setOcreAmount] = useState(getLocalStorageItem('ocreAmount')?.toString() ?? '1');
 
     return (
         <div className={styles.settingsPageContainer}>
@@ -64,7 +64,7 @@ export default function SettingsPageContainer() {
                         value={ocreAmount}
                         onChange={(e) => {
                             setOcreAmount(e.target.value);
-                            setLocalStorageItem('ocreAmount', e.target.value);
+                            setLocalStorageItem('ocreAmount', parseInt(e.target.value || '1'));
                         }}
                         name="ocre-amount"
                         id="ocre-amount"
