@@ -8,21 +8,35 @@ import { useMetamobMonstersQuery } from '../../../../utils/api/metamob.queries';
 
 export default function MonsterCardAmountSelector({ monster }: { monster: MetamobMonsterDto }) {
     const [monsterAmount, setMonsterAmount] = useState(monster.quantite.toString());
-    const { refetch } = useMetamobMonstersQuery();
+    const [isUpdating, setIsUpdating] = useState(false);
+    const { refetch, isFetching } = useMetamobMonstersQuery();
+    const disabled = isFetching || isUpdating;
+
+    async function updateMonsterAmount(newMonsterAmount: number) {
+        try {
+            setIsUpdating(true);
+            await updateMonster(monster, newMonsterAmount);
+            await refetch();
+        } finally {
+            setIsUpdating(false);
+        }
+    }
+
     return (
         <div className={styles.monsterCardAmountSelectorContainer}>
             <button
                 className={styles.amountButtons}
+                disabled={disabled}
                 onClick={async () => {
                     const newMonsterAmount = Math.max(0, parseInt(monsterAmount || '0') - 1);
                     setMonsterAmount(newMonsterAmount.toString());
-                    await updateMonster(monster, newMonsterAmount);
-                    await refetch();
+                    await updateMonsterAmount(newMonsterAmount);
                 }}
             >
-                <Minus size={20} />
+                <Minus size={20} color={disabled ? 'grey' : undefined} />
             </button>
             <CustomNumberInput
+                disabled={disabled}
                 customStyle={styles.monsterAmountInput}
                 value={monsterAmount}
                 onChange={(e) => {
@@ -34,20 +48,19 @@ export default function MonsterCardAmountSelector({ monster }: { monster: Metamo
                         setMonsterAmount('0');
                         newMonsterAmount = 0;
                     }
-                    await updateMonster(monster, newMonsterAmount);
-                    await refetch();
+                    await updateMonsterAmount(newMonsterAmount);
                 }}
             />
             <button
                 className={styles.amountButtons}
+                disabled={disabled}
                 onClick={async () => {
                     const newMonsterAmount = parseInt(monsterAmount || '0') + 1;
                     setMonsterAmount(newMonsterAmount.toString());
-                    await updateMonster(monster, newMonsterAmount);
-                    await refetch();
+                    await updateMonsterAmount(newMonsterAmount);
                 }}
             >
-                <Plus size={20} />
+                <Plus size={20} color={disabled ? 'grey' : undefined} />
             </button>
         </div>
     );

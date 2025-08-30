@@ -19,6 +19,7 @@ export default function AmountFilter({
                     id="amount-search-bar"
                     value={searchedMonsterAmount}
                     onChange={(e) => onMonsterAmountChange(e.target.value)}
+                    onFocus={(e) => e.target.select()}
                 />
             </div>
         </div>
