@@ -9,6 +9,8 @@
 
     padding: 1rem;
 
+    user-select: none;
+
     .settingTypeContainer {
         display: flex;
         flex-direction: column;
