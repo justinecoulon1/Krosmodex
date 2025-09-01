@@ -17,6 +17,15 @@
     height: 100%;
     background-color: var(--primary-darker);
     border: 2px solid var(--primary-light);
+
+    .monstersContainerMainContent {
+        display: flex;
+        justify-content: center;
+        padding: 1rem;
+        color: red;
+
+        user-select: none;
+    }
 }
 
 .monsterCardGridContainer {

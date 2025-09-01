@@ -5,7 +5,7 @@ import FiltersContainer from './filters-container/filters-container';
 import { useMetamobMonstersQuery } from '../../utils/api/metamob.queries';
 
 export default function HomePageContainer() {
-    const { data: allMonsters, isLoading, error, refetch } = useMetamobMonstersQuery();
+    const { data: allMonsters, refetch } = useMetamobMonstersQuery();
     const [filteredMonsters, setFilteredMonsters] = useState(allMonsters);
 
     useEffect(() => {

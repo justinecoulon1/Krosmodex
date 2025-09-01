@@ -3,6 +3,7 @@ import { useMetamobMonstersQuery } from '../utils/api/metamob.queries';
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { MetamobMonsterDto } from '../utils/api/dto/metamob.dto';
 import { updateMonster, updateMonsters } from '../utils/api/services/metamob.helper';
+import metamobService from '../utils/api/services/metamob.service';
 
 export type MetamobMonstersContextType = {
     updateMonsterMutation: UseMutationResult<
@@ -15,12 +16,10 @@ export type MetamobMonstersContextType = {
         unknown
     >;
     updateMonstersMutation: UseMutationResult<void, Error, void, unknown>;
+    checkMetamobConnectionMutation: UseMutationResult<void, Error, void, unknown>;
 };
 
-const MetamobMonstersContext = createContext<MetamobMonstersContextType>({
-    updateMonsterMutation: undefined as any,
-    updateMonstersMutation: undefined as any,
-});
+const MetamobMonstersContext = createContext<MetamobMonstersContextType>({} as MetamobMonstersContextType);
 
 export function useMetamobMonstersContext(): MetamobMonstersContextType {
     const context = useContext(MetamobMonstersContext);
@@ -33,12 +32,14 @@ export function useMetamobMonstersContext(): MetamobMonstersContextType {
 export function MetamobMonstersProvider({ children }: { children: ReactNode }) {
     const updateMonsterMutation = useMetamobMonsterMutation();
     const updateMonstersMutation = useMetamobMonstersMutation();
+    const checkMetamobConnectionMutation = useCheckMetamobConnectionMutation();
 
     return (
         <MetamobMonstersContext.Provider
             value={{
                 updateMonsterMutation,
                 updateMonstersMutation,
+                checkMetamobConnectionMutation,
             }}
         >
             {children}
@@ -54,7 +55,7 @@ function useMetamobMonstersMutation() {
             await updateMonsters();
             await refetch();
         },
-        retry: 3,
+        retry: 2,
     });
 }
 
@@ -66,6 +67,14 @@ function useMetamobMonsterMutation() {
             await updateMonster(params);
             await refetch();
         },
-        retry: 3,
+        retry: 2,
+    });
+}
+
+function useCheckMetamobConnectionMutation() {
+    return useMutation({
+        mutationKey: ['check_metamob_connection'],
+        mutationFn: metamobService.checkConnection,
+        retry: 2,
     });
 }

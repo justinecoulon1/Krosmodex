@@ -4,13 +4,14 @@ import { VirtuosoGrid } from 'react-virtuoso';
 import classNames from 'classnames';
 import MonsterCard from './monster-card/monster-card';
 import { getLocalStorageItem } from '../../../utils/local-storage/local-storage.utils';
+import { useMetamobMonstersQuery } from '../../../utils/api/metamob.queries';
+import { PropagateLoader } from 'react-spinners';
 
 export default function MonstersContainer({ filteredMonsters }: { filteredMonsters: MetamobMonsterDto[] }) {
-    const ocreAmount = getLocalStorageItem('ocreAmount') ?? 1;
     return (
         <div className={styles.monstersContainer}>
             <MonsterContainerTitleBar filteredMonsters={filteredMonsters} />
-            <CardsGrid filteredMonsters={filteredMonsters} ocreAmount={ocreAmount} />
+            <MonstersContainerMainContent filteredMonsters={filteredMonsters} />
         </div>
     );
 }
@@ -40,4 +41,24 @@ function CardsGrid({ filteredMonsters, ocreAmount }: { filteredMonsters: Metamob
             itemContent={(index) => <MonsterCard monster={filteredMonsters[index]} ocreAmount={ocreAmount} />}
         />
     );
+}
+
+function MonstersContainerMainContent({ filteredMonsters }: { filteredMonsters: MetamobMonsterDto[] }) {
+    const { isFetching, error } = useMetamobMonstersQuery();
+    if (isFetching) {
+        return (
+            <div className={styles.monstersContainerMainContent}>
+                <PropagateLoader size={10} color={'white'} />
+            </div>
+        );
+    } else if (error) {
+        return (
+            <p className={styles.monstersContainerMainContent}>
+                Récupération de monstres échouée, veuillez vérifier les paramères Metamob.
+            </p>
+        );
+    } else {
+        const ocreAmount = getLocalStorageItem('ocreAmount') ?? 1;
+        return <CardsGrid filteredMonsters={filteredMonsters} ocreAmount={ocreAmount} />;
+    }
 }

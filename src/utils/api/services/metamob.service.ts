@@ -19,6 +19,16 @@ class MetamobService {
         );
         return response.data;
     }
+
+    async checkConnection() {
+        const metamobUserName = getLocalStorageItem('metamobName');
+        const metamobApiKey = getLocalStorageItem('metamobApiKey');
+        const metamobUniqueId = getLocalStorageItem('metamobUniqueId');
+        if (!metamobUserName || !metamobApiKey || !metamobUniqueId) {
+            throw new Error('Metamob not fully configured.');
+        }
+        await metamobAxios.put(`/utilisateurs/${metamobUserName}/monstres`, {});
+    }
 }
 
 export default new MetamobService();

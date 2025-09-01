@@ -7,6 +7,6 @@ export function useMetamobMonstersQuery() {
         queryFn: metamobService.getMonsters,
         refetchOnMount: false,
         initialData: [],
-        retry: 3,
+        retry: 2,
     });
 }
