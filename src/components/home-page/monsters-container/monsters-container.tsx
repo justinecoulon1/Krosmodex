@@ -9,16 +9,17 @@ export default function MonstersContainer({ filteredMonsters }: { filteredMonste
     const ocreAmount = getLocalStorageItem('ocreAmount') ?? 1;
     return (
         <div className={styles.monstersContainer}>
-            <MonsterContainerTitleBar />
+            <MonsterContainerTitleBar filteredMonsters={filteredMonsters} />
             <CardsGrid filteredMonsters={filteredMonsters} ocreAmount={ocreAmount} />
         </div>
     );
 }
 
-function MonsterContainerTitleBar() {
+function MonsterContainerTitleBar({ filteredMonsters }: { filteredMonsters: MetamobMonsterDto[] }) {
     return (
         <div className={styles.monsterContainerTitleBar}>
             <h3>Monstres</h3>
+            <p>Nombre de monstres affichés : {filteredMonsters.length}</p>
         </div>
     );
 }
