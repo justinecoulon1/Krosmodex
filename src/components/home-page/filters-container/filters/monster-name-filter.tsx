@@ -19,7 +19,7 @@ export default function MonsterNameFilter({
                     id="name-search-bar"
                     value={searchedMonsterName}
                     onChange={(e) => onMonsterNameChange(e.target.value)}
-                    onFocus={(e) => e.target.select()}
+                    selectAllOnFocus={true}
                 />
             </div>
         </div>

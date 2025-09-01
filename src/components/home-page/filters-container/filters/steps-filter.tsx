@@ -17,6 +17,7 @@ export default function StepsFilter({
             <div className={styles.stepFilter}>
                 {steps.map((step) => (
                     <StepButton
+                        key={`step-filter-${step}`}
                         currentlySelectedStep={selectedStep}
                         stepButtonValue={step}
                         onButtonSelected={onStepChange}

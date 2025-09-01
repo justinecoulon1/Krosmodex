@@ -17,10 +17,13 @@ export function RadioButtonFilter({
             <h4>{title} :</h4>
             <div className={styles.filterOptionsContainer}>
                 {options.map((option) => (
-                    <div className={styles.filterOptions} onClick={() => onOptionSelected(option.key)}>
+                    <div
+                        className={styles.filterOptions}
+                        onClick={() => onOptionSelected(option.key)}
+                        key={`filter-${option.key}`}
+                    >
                         <input
                             type="radio"
-                            key={option.key}
                             id={option.key}
                             name={option.key}
                             value={option.key}

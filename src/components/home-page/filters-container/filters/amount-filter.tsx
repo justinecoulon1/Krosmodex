@@ -1,5 +1,5 @@
 import styles from '../filters.module.css';
-import { CustomTextInput } from '../../../custom-components/custom-inputs';
+import { CustomNumberInput } from '../../../custom-components/custom-inputs';
 
 export default function AmountFilter({
     searchedMonsterAmount,
@@ -14,12 +14,12 @@ export default function AmountFilter({
                 <label htmlFor="amount-search-bar">
                     <h4>Quantité minimale :</h4>
                 </label>
-                <CustomTextInput
+                <CustomNumberInput
                     name="amount-search-bar"
                     id="amount-search-bar"
                     value={searchedMonsterAmount}
                     onChange={(e) => onMonsterAmountChange(e.target.value)}
-                    onFocus={(e) => e.target.select()}
+                    selectAllOnFocus={true}
                 />
             </div>
         </div>

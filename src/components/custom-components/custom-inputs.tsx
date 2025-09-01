@@ -7,13 +7,13 @@ export type CustomNumberInputProps = React.DetailedHTMLProps<
 > & {
     emptyDefaultValue?: number;
     customStyle?: string;
+    selectAllOnFocus?: boolean;
 };
 
 export function CustomNumberInput({
     emptyDefaultValue = 0,
     customStyle,
-    onFocus,
-    onBlur,
+    selectAllOnFocus = false,
     ...props
 }: CustomNumberInputProps) {
     return (
@@ -22,14 +22,11 @@ export function CustomNumberInput({
             type="number"
             className={classNames(styles.customNumberInput, customStyle)}
             onFocus={(e) => {
-                if (props.onChange) {
-                    if (e.target.value === '0') {
-                        e.target.value = '';
-                        props.onChange(e);
-                    }
+                if (selectAllOnFocus) {
+                    e.target.select();
                 }
-                if (onFocus) {
-                    onFocus(e);
+                if (props.onFocus) {
+                    props.onFocus(e);
                 }
             }}
             onBlur={(e) => {
@@ -37,8 +34,8 @@ export function CustomNumberInput({
                     e.target.value = e.target.value || emptyDefaultValue?.toString();
                     props.onChange(e);
                 }
-                if (onBlur) {
-                    onBlur(e);
+                if (props.onBlur) {
+                    props.onBlur(e);
                 }
             }}
         />
@@ -50,8 +47,23 @@ export type CustomTextInputProps = React.DetailedHTMLProps<
     HTMLInputElement
 > & {
     customStyle?: string;
+    selectAllOnFocus?: boolean;
 };
 
-export function CustomTextInput({ customStyle, ...props }: CustomTextInputProps) {
-    return <input {...props} type="text" className={classNames(styles.customTextInput, customStyle)} />;
+export function CustomTextInput({ customStyle, selectAllOnFocus = false, ...props }: CustomTextInputProps) {
+    return (
+        <input
+            {...props}
+            type="text"
+            className={classNames(styles.customTextInput, customStyle)}
+            onFocus={(e) => {
+                if (selectAllOnFocus) {
+                    e.target.select();
+                }
+                if (props.onFocus) {
+                    props.onFocus(e);
+                }
+            }}
+        />
+    );
 }
