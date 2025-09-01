@@ -2,8 +2,9 @@ import { MetamobMonsterDto, MetamobMonsterStatus, MetamobUpdateMonsterDto } from
 import { getLocalStorageItem } from '../../local-storage/local-storage.utils';
 import metamobService from './metamob.service';
 
-export async function updateMonster(monster: MetamobMonsterDto, amount: number) {
-    const newMonsterStatus = getUpdatedMonsterStatus(amount, monster);
+export async function updateMonster({ monster, amount }: { monster: MetamobMonsterDto; amount: number }) {
+    const ocreAmount = getLocalStorageItem('ocreAmount') || 1;
+    const newMonsterStatus = getUpdatedMonsterStatus(amount, monster, ocreAmount);
     const metamobUpdateMonsterDto: MetamobUpdateMonsterDto = {
         id: monster.id,
         etat: newMonsterStatus,
@@ -12,8 +13,7 @@ export async function updateMonster(monster: MetamobMonsterDto, amount: number) 
     await metamobService.updateMonsters([metamobUpdateMonsterDto]);
 }
 
-function getUpdatedMonsterStatus(amount: number, monster: MetamobMonsterDto): MetamobMonsterStatus {
-    const ocreAmount = getLocalStorageItem('ocreAmount') || 1;
+function getUpdatedMonsterStatus(amount: number, monster: MetamobMonsterDto, ocreAmount: number): MetamobMonsterStatus {
     if (monster.type !== 'archimonstre') {
         return 'aucun';
     } else if (amount > ocreAmount) {
@@ -23,4 +23,17 @@ function getUpdatedMonsterStatus(amount: number, monster: MetamobMonsterDto): Me
     } else {
         return 'aucun';
     }
+}
+
+export async function updateMonsters() {
+    const monsters = await metamobService.getMonsters();
+    const ocreAmount = getLocalStorageItem('ocreAmount') || 1;
+    const updatedMonsters: MetamobUpdateMonsterDto[] = monsters.map((monster) => {
+        const newMonsterStatus = getUpdatedMonsterStatus(monster.quantite, monster, ocreAmount);
+        return {
+            id: monster.id,
+            etat: newMonsterStatus,
+        };
+    });
+    await metamobService.updateMonsters(updatedMonsters);
 }

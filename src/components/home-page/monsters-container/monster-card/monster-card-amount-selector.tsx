@@ -3,24 +3,16 @@ import { useState } from 'react';
 import styles from './monster-card.module.css';
 import { Minus, Plus } from 'lucide-react';
 import { CustomNumberInput } from '../../../custom-components/custom-inputs';
-import { updateMonster } from '../../../../utils/api/services/metamob.helper';
+import { useMetamobMonstersContext } from '../../../../contexts/metamob-monsters-context';
 import { useMetamobMonstersQuery } from '../../../../utils/api/metamob.queries';
 
 export default function MonsterCardAmountSelector({ monster }: { monster: MetamobMonsterDto }) {
     const [monsterAmount, setMonsterAmount] = useState(monster.quantite.toString());
-    const [isUpdating, setIsUpdating] = useState(false);
-    const { refetch, isFetching } = useMetamobMonstersQuery();
-    const disabled = isFetching || isUpdating;
-
-    async function updateMonsterAmount(newMonsterAmount: number) {
-        try {
-            setIsUpdating(true);
-            await updateMonster(monster, newMonsterAmount);
-            await refetch();
-        } finally {
-            setIsUpdating(false);
-        }
-    }
+    const { updateMonstersMutation, updateMonsterMutation } = useMetamobMonstersContext();
+    const { isFetching: isMonstersQueryFetching } = useMetamobMonstersQuery();
+    const { isPending: isMonsterMutationPending, mutateAsync } = updateMonsterMutation;
+    const { isPending: isMonstersMutationPending } = updateMonstersMutation;
+    const disabled = isMonsterMutationPending || isMonstersMutationPending || isMonstersQueryFetching;
 
     return (
         <div className={styles.monsterCardAmountSelectorContainer}>
@@ -30,7 +22,7 @@ export default function MonsterCardAmountSelector({ monster }: { monster: Metamo
                 onClick={async () => {
                     const newMonsterAmount = Math.max(0, parseInt(monsterAmount || '0') - 1);
                     setMonsterAmount(newMonsterAmount.toString());
-                    await updateMonsterAmount(newMonsterAmount);
+                    await mutateAsync({ monster, amount: newMonsterAmount });
                 }}
             >
                 <Minus size={20} color={disabled ? 'grey' : undefined} />
@@ -48,7 +40,7 @@ export default function MonsterCardAmountSelector({ monster }: { monster: Metamo
                         setMonsterAmount('0');
                         newMonsterAmount = 0;
                     }
-                    await updateMonsterAmount(newMonsterAmount);
+                    await mutateAsync({ monster, amount: newMonsterAmount });
                 }}
             />
             <button
@@ -57,7 +49,7 @@ export default function MonsterCardAmountSelector({ monster }: { monster: Metamo
                 onClick={async () => {
                     const newMonsterAmount = parseInt(monsterAmount || '0') + 1;
                     setMonsterAmount(newMonsterAmount.toString());
-                    await updateMonsterAmount(newMonsterAmount);
+                    await mutateAsync({ monster, amount: newMonsterAmount });
                 }}
             >
                 <Plus size={20} color={disabled ? 'grey' : undefined} />

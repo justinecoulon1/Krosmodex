@@ -11,11 +11,9 @@ export type MetamobMonsterDto = {
 
 export type MetamobUpdateMonsterDto = {
     id: number;
-    etat: MetamobMonsterStatus;
-    quantite: number;
+    etat?: MetamobMonsterStatus;
+    quantite?: number;
 };
-
-export type MetamobUpdateRequestDto = MetamobUpdateMonsterDto[];
 
 export type MetamobMonsterType = 'monstre' | 'archimonstre' | 'boss';
 export type MetamobMonsterStatus = 'recherche' | 'propose' | 'aucun';

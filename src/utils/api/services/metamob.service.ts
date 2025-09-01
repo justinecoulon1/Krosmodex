@@ -1,5 +1,5 @@
 import { metamobAxios } from './metamob.axios';
-import { MetamobMonsterDto, MetamobUpdateRequestDto } from '../dto/metamob.dto';
+import { MetamobMonsterDto, MetamobUpdateMonsterDto } from '../dto/metamob.dto';
 import { getLocalStorageItem } from '../../local-storage/local-storage.utils';
 
 class MetamobService {
@@ -10,7 +10,7 @@ class MetamobService {
         return response.data;
     }
 
-    async updateMonsters(metamobUpdateRequestDto: MetamobUpdateRequestDto) {
+    async updateMonsters(metamobUpdateRequestDto: MetamobUpdateMonsterDto[]) {
         const metamobUserName = getLocalStorageItem('metamobName');
 
         const response = await metamobAxios.put<MetamobMonsterDto[]>(

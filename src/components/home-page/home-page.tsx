@@ -1,8 +1,8 @@
 import styles from './home-page.module.css';
 import { useEffect, useState } from 'react';
-import { useMetamobMonstersQuery } from '../../utils/api/metamob.queries';
 import MonstersContainer from './monsters-container/monsters-container';
 import FiltersContainer from './filters-container/filters-container';
+import { useMetamobMonstersQuery } from '../../utils/api/metamob.queries';
 
 export default function HomePageContainer() {
     const { data: allMonsters, isLoading, error, refetch } = useMetamobMonstersQuery();
