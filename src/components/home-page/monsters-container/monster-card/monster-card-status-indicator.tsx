@@ -3,6 +3,8 @@ import styles from './monster-card.module.css';
 import classNames from 'classnames';
 import { getMonsterStatus, getMonsterType } from '../../../../model/monsters/monsters.utils';
 import { useMetamobMonstersQuery } from '../../../../utils/api/metamob.queries';
+import { BeatLoader } from 'react-spinners';
+import { useMetamobMonstersContext } from '../../../../contexts/metamob-monsters-context';
 
 export default function MonsterCardStatusIndicator({
     monster,
@@ -34,9 +36,10 @@ function getMonsterSearchStatusStyle(monster: MetamobMonsterDto, ocreAmount: num
 
 function getMonsterSearchStatusText(monster: MetamobMonsterDto) {
     const { isFetching } = useMetamobMonstersQuery();
+    const { updateMonstersMutation, updateMonsterMutation } = useMetamobMonstersContext();
     const monsterType = getMonsterType(monster);
-    if (isFetching) {
-        return '...';
+    if (isFetching || updateMonstersMutation.isPending || updateMonsterMutation.isPending) {
+        return <BeatLoader color={'white'} size={10} />;
     } else if (monsterType === 'archmonsters') {
         const monsterStatus = getMonsterStatus(monster);
         switch (monsterStatus) {

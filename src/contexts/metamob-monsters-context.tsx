@@ -75,6 +75,7 @@ function useCheckMetamobConnectionMutation() {
     return useMutation({
         mutationKey: ['check_metamob_connection'],
         mutationFn: metamobService.checkConnection,
+        retryDelay: 500,
         retry: 2,
     });
 }

@@ -5,6 +5,7 @@ import { CustomTextInput } from '../custom-components/custom-inputs';
 import { useMetamobMonstersContext } from '../../contexts/metamob-monsters-context';
 import { MoonLoader } from 'react-spinners';
 import { Check, X } from 'lucide-react';
+import { TERTIARY_COLOR } from '../../app-constants';
 
 export default function MetamobConfigurationSettings() {
     const [metamobName, setMetamobName] = useState(getLocalStorageItem('metamobName') ?? '');
@@ -81,8 +82,8 @@ export default function MetamobConfigurationSettings() {
 function CheckMetamobConnectionStatus() {
     const { checkMetamobConnectionMutation } = useMetamobMonstersContext();
 
-    if (checkMetamobConnectionMutation.isPending) {
-        return <MoonLoader color={'white'} size={20} />;
+    if (checkMetamobConnectionMutation.isIdle || checkMetamobConnectionMutation.isPending) {
+        return <MoonLoader color={TERTIARY_COLOR} size={20} />;
     } else if (checkMetamobConnectionMutation.isError) {
         return <X color={'red'} />;
     } else {

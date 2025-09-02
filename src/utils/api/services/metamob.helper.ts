@@ -10,6 +10,7 @@ export async function updateMonster({ monster, amount }: { monster: MetamobMonst
         etat: newMonsterStatus,
         quantite: amount,
     };
+    monster.quantite = amount;
     await metamobService.updateMonsters([metamobUpdateMonsterDto]);
 }
 

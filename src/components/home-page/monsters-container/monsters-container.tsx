@@ -6,6 +6,7 @@ import MonsterCard from './monster-card/monster-card';
 import { getLocalStorageItem } from '../../../utils/local-storage/local-storage.utils';
 import { useMetamobMonstersQuery } from '../../../utils/api/metamob.queries';
 import { PropagateLoader } from 'react-spinners';
+import { TERTIARY_COLOR } from '../../../app-constants';
 
 export default function MonstersContainer({ filteredMonsters }: { filteredMonsters: MetamobMonsterDto[] }) {
     return (
@@ -45,18 +46,20 @@ function CardsGrid({ filteredMonsters, ocreAmount }: { filteredMonsters: Metamob
 
 function MonstersContainerMainContent({ filteredMonsters }: { filteredMonsters: MetamobMonsterDto[] }) {
     const { isFetching, error } = useMetamobMonstersQuery();
-    if (isFetching) {
+    if (isFetching && filteredMonsters.length === 0) {
         return (
             <div className={styles.monstersContainerMainContent}>
-                <PropagateLoader size={10} color={'white'} />
+                <PropagateLoader size={10} color={TERTIARY_COLOR} />
             </div>
         );
     } else if (error) {
         return (
-            <p className={styles.monstersContainerMainContent}>
+            <p className={classNames(styles.monstersContainerMainContent, styles.error)}>
                 Récupération de monstres échouée, veuillez vérifier les paramères Metamob.
             </p>
         );
+    } else if (filteredMonsters.length === 0) {
+        return <p className={styles.monstersContainerMainContent}>Aucun monstre ne correspond à ces filtres.</p>;
     } else {
         const ocreAmount = getLocalStorageItem('ocreAmount') ?? 1;
         return <CardsGrid filteredMonsters={filteredMonsters} ocreAmount={ocreAmount} />;

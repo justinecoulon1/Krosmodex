@@ -6,8 +6,9 @@ import { useMetamobMonstersContext } from '../../contexts/metamob-monsters-conte
 
 export default function KrosmodexConfigurationSettings() {
     const [ocreAmount, setOcreAmount] = useState(getLocalStorageItem('ocreAmount')?.toString() ?? '1');
-    const { updateMonstersMutation } = useMetamobMonstersContext();
+    const { updateMonstersMutation, checkMetamobConnectionMutation } = useMetamobMonstersContext();
     const { mutateAsync, isPending, error } = updateMonstersMutation;
+    const { isSuccess } = checkMetamobConnectionMutation;
     return (
         <div className={styles.settingTypeContainer}>
             <h2>Configuration Krosmodex</h2>
@@ -20,7 +21,7 @@ export default function KrosmodexConfigurationSettings() {
                         setOcreAmount(e.target.value);
                         setLocalStorageItem('ocreAmount', parseInt(e.target.value || '1'));
                     }}
-                    disabled={isPending}
+                    disabled={isPending || !isSuccess}
                     onBlur={async () => {
                         await mutateAsync();
                     }}
