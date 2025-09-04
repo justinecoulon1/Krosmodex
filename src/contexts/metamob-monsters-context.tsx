@@ -4,6 +4,7 @@ import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { MetamobMonsterDto } from '../utils/api/dto/metamob.dto';
 import { updateMonster, updateMonsters } from '../utils/api/services/metamob.helper';
 import metamobService from '../utils/api/services/metamob.service';
+import toast from 'react-hot-toast';
 
 export type MetamobMonstersContextType = {
     updateMonsterMutation: UseMutationResult<
@@ -52,8 +53,29 @@ function useMetamobMonstersMutation() {
     return useMutation({
         mutationKey: ['update_monsters'],
         mutationFn: async () => {
-            await updateMonsters();
-            await refetch();
+            try {
+                await updateMonsters();
+                await refetch();
+                toast.success('Monstres mis à jour correctement', {
+                    style: {
+                        backgroundColor: 'var(--primary-dark)',
+                        color: 'var(--secondary)',
+                        border: '2px solid var(--primary-light)',
+                        fontSize: '1.1rem',
+                    },
+                    position: 'bottom-right',
+                });
+            } catch (error) {
+                toast.error('Erreur lors de la mise à jour des monstres', {
+                    style: {
+                        backgroundColor: 'var(--primary-dark)',
+                        color: 'var(--secondary)',
+                        border: '2px solid var(--primary-light)',
+                        fontSize: '1.1rem',
+                    },
+                    position: 'bottom-right',
+                });
+            }
         },
         retry: 2,
     });
@@ -64,8 +86,29 @@ function useMetamobMonsterMutation() {
     return useMutation({
         mutationKey: ['update_monster'],
         mutationFn: async (params: { monster: MetamobMonsterDto; amount: number }) => {
-            await updateMonster(params);
-            await refetch();
+            try {
+                await updateMonster(params);
+                await refetch();
+                toast.success('Monstre mis à jour correctement', {
+                    style: {
+                        backgroundColor: 'var(--primary-dark)',
+                        color: 'var(--secondary)',
+                        border: '2px solid var(--primary-light)',
+                        fontSize: '1.1rem',
+                    },
+                    position: 'bottom-right',
+                });
+            } catch (error) {
+                toast.error('Erreur lors de la mise à jour du monstre', {
+                    style: {
+                        backgroundColor: 'var(--primary-dark)',
+                        color: 'var(--secondary)',
+                        border: '2px solid var(--primary-light)',
+                        fontSize: '1.1rem',
+                    },
+                    position: 'bottom-right',
+                });
+            }
         },
         retry: 2,
     });
