@@ -26,13 +26,23 @@ const root = createRoot(document.body);
 root.render(
     <ClientProviders>
         <div className={styles.titleBar}>
-            <img src="/krosmodex_logo.png" alt="logo" className={styles.logo} />
+            <img src="/orange-frog-yellow-eyes.png" alt="logo" className={styles.logo} />
             <p className={styles.appName}>KROSMODEX</p>
         </div>
         <div className={styles.mainContainer}>
             <SideBarContainer router={router} />
             <RouterProvider router={router} />
-            <Toaster />
+            <Toaster
+                toastOptions={{
+                    style: {
+                        backgroundColor: 'var(--primary-dark)',
+                        color: 'var(--secondary)',
+                        border: '2px solid var(--primary-light)',
+                        fontSize: '1.1rem',
+                    },
+                    position: 'bottom-right',
+                }}
+            />
         </div>
     </ClientProviders>,
 );

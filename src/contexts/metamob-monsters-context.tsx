@@ -5,6 +5,7 @@ import { MetamobMonsterDto } from '../utils/api/dto/metamob.dto';
 import { updateMonster, updateMonsters } from '../utils/api/services/metamob.helper';
 import metamobService from '../utils/api/services/metamob.service';
 import toast from 'react-hot-toast';
+import { MonsterIcon } from '../utils/ui/toaster/toaster.utils';
 
 export type MetamobMonstersContextType = {
     updateMonsterMutation: UseMutationResult<
@@ -56,25 +57,9 @@ function useMetamobMonstersMutation() {
             try {
                 await updateMonsters();
                 await refetch();
-                toast.success('Monstres mis à jour correctement', {
-                    style: {
-                        backgroundColor: 'var(--primary-dark)',
-                        color: 'var(--secondary)',
-                        border: '2px solid var(--primary-light)',
-                        fontSize: '1.1rem',
-                    },
-                    position: 'bottom-right',
-                });
+                toast.success('Monstres mis à jour correctement');
             } catch (error) {
-                toast.error('Erreur lors de la mise à jour des monstres', {
-                    style: {
-                        backgroundColor: 'var(--primary-dark)',
-                        color: 'var(--secondary)',
-                        border: '2px solid var(--primary-light)',
-                        fontSize: '1.1rem',
-                    },
-                    position: 'bottom-right',
-                });
+                toast.error('Erreur lors de la mise à jour des monstres');
             }
         },
         retry: 2,
@@ -90,23 +75,13 @@ function useMetamobMonsterMutation() {
                 await updateMonster(params);
                 await refetch();
                 toast.success('Monstre mis à jour correctement', {
-                    style: {
-                        backgroundColor: 'var(--primary-dark)',
-                        color: 'var(--secondary)',
-                        border: '2px solid var(--primary-light)',
-                        fontSize: '1.1rem',
-                    },
-                    position: 'bottom-right',
+                    icon: <MonsterIcon monsterId={params.monster.id} />,
+                    style: { border: '2px solid green' },
                 });
             } catch (error) {
                 toast.error('Erreur lors de la mise à jour du monstre', {
-                    style: {
-                        backgroundColor: 'var(--primary-dark)',
-                        color: 'var(--secondary)',
-                        border: '2px solid var(--primary-light)',
-                        fontSize: '1.1rem',
-                    },
-                    position: 'bottom-right',
+                    icon: <MonsterIcon monsterId={params.monster.id} />,
+                    style: { border: '2px solid red' },
                 });
             }
         },
