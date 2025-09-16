@@ -1,7 +1,8 @@
 import { useMetamobMonstersQuery } from '../../utils/api/metamob.queries';
 import { getLocalStorageItem } from '../../utils/local-storage/local-storage.utils';
-import StatsCard from './stats-container/stats-card';
 import { useEffect } from 'react';
+import styles from './stats-page.module.css';
+import StatsPageContent from './stats-page-content';
 
 export type OcreStat = {
     ocreNumber: number;
@@ -21,9 +22,9 @@ export default function StatsPageContainer() {
 
     const ocreStats: OcreStat[] = [];
 
-    for (let i = 0; i <= ocreAmount; i++) {
+    for (let i = 1; i <= ocreAmount; i++) {
         ocreStats.push({
-            ocreNumber: i + 1,
+            ocreNumber: i,
             ownedMonstersAmount: monsters
                 .filter((monster) => monster.type === 'monstre')
                 .filter((monster) => monster.quantite >= i).length,
@@ -35,12 +36,14 @@ export default function StatsPageContainer() {
                 .filter((monster) => monster.quantite >= i).length,
         });
     }
-
     return (
-        <div>
-            {ocreStats.map((stats) => (
-                <StatsCard stats={stats} key={`ocre-stats-${stats.ocreNumber}`} />
-            ))}
+        <div className={styles.statsPageContainer}>
+            <div className={styles.statsPageContentContainer}>
+                <div className={styles.statsPageHeader}>
+                    <h2>Statistiques</h2>
+                </div>
+                <StatsPageContent ocreStats={ocreStats} />
+            </div>
         </div>
     );
 }
