@@ -1,0 +1,5 @@
+.statsCard {
+    display: flex;
+    flex-direction: column;
+    border: 1px var(--secondary-light) solid;
+}

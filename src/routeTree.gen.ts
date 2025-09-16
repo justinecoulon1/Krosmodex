@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as TradeImport } from './routes/trade'
+import { Route as StatsImport } from './routes/stats'
 import { Route as SettingsImport } from './routes/settings'
 import { Route as MapImport } from './routes/map'
 import { Route as IndexImport } from './routes/index'
@@ -21,6 +22,12 @@ import { Route as IndexImport } from './routes/index'
 const TradeRoute = TradeImport.update({
   id: '/trade',
   path: '/trade',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const StatsRoute = StatsImport.update({
+  id: '/stats',
+  path: '/stats',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -67,6 +74,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsImport
       parentRoute: typeof rootRoute
     }
+    '/stats': {
+      id: '/stats'
+      path: '/stats'
+      fullPath: '/stats'
+      preLoaderRoute: typeof StatsImport
+      parentRoute: typeof rootRoute
+    }
     '/trade': {
       id: '/trade'
       path: '/trade'
@@ -83,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/map': typeof MapRoute
   '/settings': typeof SettingsRoute
+  '/stats': typeof StatsRoute
   '/trade': typeof TradeRoute
 }
 
@@ -90,6 +105,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/map': typeof MapRoute
   '/settings': typeof SettingsRoute
+  '/stats': typeof StatsRoute
   '/trade': typeof TradeRoute
 }
 
@@ -98,15 +114,16 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/map': typeof MapRoute
   '/settings': typeof SettingsRoute
+  '/stats': typeof StatsRoute
   '/trade': typeof TradeRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/map' | '/settings' | '/trade'
+  fullPaths: '/' | '/map' | '/settings' | '/stats' | '/trade'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/map' | '/settings' | '/trade'
-  id: '__root__' | '/' | '/map' | '/settings' | '/trade'
+  to: '/' | '/map' | '/settings' | '/stats' | '/trade'
+  id: '__root__' | '/' | '/map' | '/settings' | '/stats' | '/trade'
   fileRoutesById: FileRoutesById
 }
 
@@ -114,6 +131,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   MapRoute: typeof MapRoute
   SettingsRoute: typeof SettingsRoute
+  StatsRoute: typeof StatsRoute
   TradeRoute: typeof TradeRoute
 }
 
@@ -121,6 +139,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MapRoute: MapRoute,
   SettingsRoute: SettingsRoute,
+  StatsRoute: StatsRoute,
   TradeRoute: TradeRoute,
 }
 
@@ -137,6 +156,7 @@ export const routeTree = rootRoute
         "/",
         "/map",
         "/settings",
+        "/stats",
         "/trade"
       ]
     },
@@ -148,6 +168,9 @@ export const routeTree = rootRoute
     },
     "/settings": {
       "filePath": "settings.tsx"
+    },
+    "/stats": {
+      "filePath": "stats.tsx"
     },
     "/trade": {
       "filePath": "trade.tsx"
