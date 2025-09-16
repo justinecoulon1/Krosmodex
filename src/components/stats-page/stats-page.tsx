@@ -40,7 +40,7 @@ export default function StatsPageContainer() {
         <div className={styles.statsPageContainer}>
             <div className={styles.statsPageContentContainer}>
                 <div className={styles.statsPageHeader}>
-                    <h2>Statistiques</h2>
+                    <h3>Statistiques</h3>
                 </div>
                 <StatsPageContent ocreStats={ocreStats} />
             </div>

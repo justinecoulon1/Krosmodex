@@ -17,7 +17,7 @@ export default function StatsPageContent({ ocreStats }: { ocreStats: OcreStat[] 
     } else if (error) {
         return (
             <p className={classNames(styles.statsPageContent, styles.error)}>
-                Récupération de monstres échouée, veuillez vérifier les paramères Metamob.
+                Récupération des statistiques des ocres échouée, veuillez vérifier les paramères.
             </p>
         );
     } else {
