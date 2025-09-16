@@ -26,7 +26,7 @@ const root = createRoot(document.body);
 root.render(
     <ClientProviders>
         <div className={styles.titleBar}>
-            <img src="/orange-frog-yellow-eyes.png" alt="logo" className={styles.logo} />
+            <img src="/orange-frog-logo.png" alt="logo" className={styles.logo} />
             <p className={styles.appName}>KROSMODEX</p>
         </div>
         <div className={styles.mainContainer}>

@@ -1,0 +1,16 @@
+.mapPageContainer {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-dark);
+
+    gap: 0.5rem;
+
+    padding: 1rem;
+
+    .mapGridContainer {
+        display: flex;
+        overflow-y: auto;
+        border: 1px solid black;
+    }
+}

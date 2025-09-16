@@ -1,36 +1,24 @@
 import styles from './side-bar.module.css';
 import type { AnyRouter } from '@tanstack/router-core';
 import React from 'react';
-import { ArrowLeftRight, Book, Settings } from 'lucide-react';
+import { ArrowLeftRight, Book, Map, Settings } from 'lucide-react';
+import SideBarTab from './side-bar-tab';
 
 export default function SideBarContainer({ router }: { router: AnyRouter }) {
-  const { navigate } = router;
-  return (
-    <div className={styles.sideBarContainer}>
-      <div
-        className={styles.sideBarImagesContainer}
-        onClick={async () => {
-          await navigate({ to: `/` });
-        }}
-      >
-        <Book size={32} />
-      </div>
-      <div
-        className={styles.sideBarImagesContainer}
-        onClick={async () => {
-          await navigate({ to: `/trade` });
-        }}
-      >
-        <ArrowLeftRight size={32} />
-      </div>
-      <div
-        className={styles.sideBarImagesContainer}
-        onClick={async () => {
-          await navigate({ to: `/settings` });
-        }}
-      >
-        <Settings size={32} />
-      </div>
-    </div>
-  );
+    return (
+        <div className={styles.sideBarContainer}>
+            <SideBarTab path={`/`} router={router}>
+                <Book size={32} />
+            </SideBarTab>
+            <SideBarTab path={`/map`} router={router}>
+                <Map size={32} />
+            </SideBarTab>
+            <SideBarTab path={`/trade`} router={router}>
+                <ArrowLeftRight size={32} />
+            </SideBarTab>
+            <SideBarTab path={`/settings`} router={router}>
+                <Settings size={32} />
+            </SideBarTab>
+        </div>
+    );
 }
