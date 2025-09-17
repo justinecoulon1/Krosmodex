@@ -1,27 +1,29 @@
-import styles from './side-bar.module.css';
-import type { AnyRouter } from '@tanstack/router-core';
-import React from 'react';
 import { ArrowLeftRight, Book, ChartNoAxesCombined, Map, Settings } from 'lucide-react';
 import SideBarTab from './side-bar-tab';
+import styles from './side-bar.module.css';
+import React from 'react';
 
-export default function SideBarContainer({ router }: { router: AnyRouter }) {
+type Tab = {
+    path: string;
+    icon: React.ComponentType<{ size?: number }>;
+};
+
+const tabs: Tab[] = [
+    { path: '/', icon: Book },
+    { path: '/stats', icon: ChartNoAxesCombined },
+    { path: '/map', icon: Map },
+    { path: '/trade', icon: ArrowLeftRight },
+    { path: '/settings', icon: Settings },
+];
+
+export default function SideBarContainer() {
     return (
         <div className={styles.sideBarContainer}>
-            <SideBarTab path={`/`} router={router}>
-                <Book size={32} />
-            </SideBarTab>{' '}
-            <SideBarTab path={`/stats`} router={router}>
-                <ChartNoAxesCombined size={32} />
-            </SideBarTab>
-            <SideBarTab path={`/map`} router={router}>
-                <Map size={32} />
-            </SideBarTab>
-            <SideBarTab path={`/trade`} router={router}>
-                <ArrowLeftRight size={32} />
-            </SideBarTab>
-            <SideBarTab path={`/settings`} router={router}>
-                <Settings size={32} />
-            </SideBarTab>
+            {tabs.map(({ path, icon: Icon }) => (
+                <SideBarTab key={path} path={path}>
+                    <Icon size={32} />
+                </SideBarTab>
+            ))}
         </div>
     );
 }

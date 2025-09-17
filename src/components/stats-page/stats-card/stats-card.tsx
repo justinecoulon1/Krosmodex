@@ -23,8 +23,12 @@ export default function StatsCard({ stats }: { stats: OcreStat }) {
         <div className={styles.statsCard}>
             <StatsCardHeader ocreNumber={stats.ocreNumber} gaugeValue={(stats.ownedTotalMonster / MAX_TOTAL) * 100} />
             <div className={styles.statsCardContent}>
-                {statsCardInfo.map((info) => (
-                    <StatsCardElement label={info.label} value={info.value} />
+                {statsCardInfo.map((info, index) => (
+                    <StatsCardElement
+                        label={info.label}
+                        value={info.value}
+                        key={`stats-card-element-${index}-${info.label}-${info.value}`}
+                    />
                 ))}
             </div>
         </div>

@@ -3,9 +3,8 @@ import { createRoot } from 'react-dom/client';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen';
 import { ClientProviders } from './client-providers';
-import styles from './title-bar.module.css';
-import SideBarContainer from './components/side-bar/side-bar';
 import { Toaster } from 'react-hot-toast';
+import styles from './title-bar.module.css';
 
 const router = createRouter({
     routeTree,
@@ -30,7 +29,6 @@ root.render(
             <p className={styles.appName}>KROSMODEX</p>
         </div>
         <div className={styles.mainContainer}>
-            <SideBarContainer router={router} />
             <RouterProvider router={router} />
             <Toaster
                 toastOptions={{

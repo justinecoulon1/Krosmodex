@@ -19,8 +19,12 @@
         }
 
         &:hover {
-            background-color: var(--primary-dark);
+            background-color: var(--primary-light);
             cursor: pointer;
         }
     }
+}
+
+.selected {
+    background-color: var(--primary);
 }
