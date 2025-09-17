@@ -2,21 +2,11 @@
     display: flex;
     flex-direction: column;
 
-    height: 9rem;
+    height: 11rem;
     width: 16rem;
 
     background-color: var(--primary-dark);
     border: 2px var(--primary-light) solid;
-
-    .statsCardHeader {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        padding: 0.5rem;
-
-        border-bottom: 2px var(--primary-light) solid;
-    }
 
     .statsCardContent {
         display: flex;
