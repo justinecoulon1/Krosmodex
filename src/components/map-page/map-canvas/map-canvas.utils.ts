@@ -31,18 +31,6 @@ export function getMapCoordinates(e: MouseEvent<HTMLCanvasElement>) {
     const cellX = Math.floor(x / CELL_SIZE);
     const cellY = Math.floor(y / CELL_SIZE);
 
-    if (e.type !== 'mousemove')
-        console.log({
-            scaleX,
-            scaleY,
-            xSurCellSize: x / CELL_SIZE,
-            ySurCellSize: y / CELL_SIZE,
-            cellX,
-            cellY,
-            resultX: cellX + MIN_X,
-            resultY: cellY + MIN_Y,
-        });
-
     return { x: cellX + MIN_X, y: cellY + MIN_Y };
 }
 
