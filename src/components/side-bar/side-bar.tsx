@@ -1,11 +1,11 @@
 import { ArrowLeftRight, Book, ChartNoAxesCombined, Map, Settings } from 'lucide-react';
 import SideBarTab from './side-bar-tab';
 import styles from './side-bar.module.css';
-import React from 'react';
+import React, { ComponentType } from 'react';
 
 type Tab = {
     path: string;
-    icon: React.ComponentType<{ size?: number }>;
+    icon: ComponentType<{ size?: number }>;
 };
 
 const tabs: Tab[] = [

@@ -1,10 +1,8 @@
 import classNames from 'classnames';
 import styles from './custom-inputs.module.css';
+import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
 
-export type CustomNumberInputProps = React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-> & {
+export type CustomNumberInputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
     emptyDefaultValue?: number;
     customStyle?: string;
     selectAllOnFocus?: boolean;
@@ -42,10 +40,7 @@ export function CustomNumberInput({
     );
 }
 
-export type CustomTextInputProps = React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-> & {
+export type CustomTextInputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
     customStyle?: string;
     selectAllOnFocus?: boolean;
 };
