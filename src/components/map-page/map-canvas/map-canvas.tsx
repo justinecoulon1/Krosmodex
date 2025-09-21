@@ -4,7 +4,7 @@ import styles from './map-canvas.module.css';
 import { drawSubArea, getCellSubArea, getMapCoordinates, SubArea } from './map-canvas.utils';
 import { CELL_SIZE, GREYED_AREAS, MAP_HEIGHT, MAP_WIDTH, MIN_X, MIN_Y } from './map-canvas-constants';
 import { TransformComponent, TransformWrapper, useControls } from 'react-zoom-pan-pinch';
-import { RotateCcw } from 'lucide-react';
+import { Crosshair } from 'lucide-react';
 
 export default function MapGrid({
     onAreaSelected,
@@ -81,7 +81,7 @@ function CenterButton() {
     return (
         <div className={styles.centerButtonContainer}>
             <button onClick={() => resetTransform()}>
-                <RotateCcw />
+                <Crosshair />
             </button>
         </div>
     );

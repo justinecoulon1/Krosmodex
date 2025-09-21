@@ -1,5 +1,5 @@
 import styles from '../filters.module.css';
-import { CustomTextInput } from '../../../custom-components/custom-inputs';
+import { CustomTextInput } from '../../../custom-components/custom-inputs/custom-inputs';
 
 export default function MonsterNameFilter({
     searchedMonsterName,

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { getLocalStorageItem, setLocalStorageItem } from '../../utils/local-storage/local-storage.utils';
 import styles from './settings-page.module.css';
-import { CustomNumberInput } from '../custom-components/custom-inputs';
+import { CustomNumberInput } from '../custom-components/custom-inputs/custom-inputs';
 import { useMetamobMonstersContext } from '../../contexts/metamob-monsters-context';
 
 export default function KrosmodexConfigurationSettings() {

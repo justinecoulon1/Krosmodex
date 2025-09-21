@@ -107,3 +107,26 @@ input[type='radio']:checked:after {
     visibility: visible;
     border: 2px solid var(--secondary-light);
 }
+
+.CircularProgressbar {
+    width: 100%;
+    vertical-align: middle;
+}
+
+.CircularProgressbar .CircularProgressbar-path {
+    stroke: var(--tertiary);
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s ease 0s;
+}
+
+.CircularProgressbar .CircularProgressbar-trail {
+    stroke: var(--secondary-light);
+    stroke-linecap: round;
+}
+
+.CircularProgressbar .CircularProgressbar-text {
+    fill: #3e98c7;
+    font-size: 20px;
+    dominant-baseline: middle;
+    text-anchor: middle;
+}

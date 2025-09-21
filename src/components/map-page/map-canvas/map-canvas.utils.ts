@@ -69,11 +69,11 @@ function drawBorder(
     cellPositionX: number,
     cellPositionY: number,
 ) {
-    if (!subAreaCells.has(`${currentCellCoordinates.x - 1},${currentCellCoordinates.y}`)) {
+    if (!hasCoordinates(subAreaCells, currentCellCoordinates.x - 1, currentCellCoordinates.y)) {
         drawStroke(context, { x: cellPositionX, y: cellPositionY + CELL_SIZE }, { x: cellPositionX, y: cellPositionY });
     }
 
-    if (!subAreaCells.has(`${currentCellCoordinates.x + 1},${currentCellCoordinates.y}`)) {
+    if (!hasCoordinates(subAreaCells, currentCellCoordinates.x + 1, currentCellCoordinates.y)) {
         drawStroke(
             context,
             { x: cellPositionX + CELL_SIZE, y: cellPositionY },
@@ -81,17 +81,21 @@ function drawBorder(
         );
     }
 
-    if (!subAreaCells.has(`${currentCellCoordinates.x},${currentCellCoordinates.y - 1}`)) {
+    if (!hasCoordinates(subAreaCells, currentCellCoordinates.x, currentCellCoordinates.y - 1)) {
         drawStroke(context, { x: cellPositionX, y: cellPositionY }, { x: cellPositionX + CELL_SIZE, y: cellPositionY });
     }
 
-    if (!subAreaCells.has(`${currentCellCoordinates.x},${currentCellCoordinates.y + 1}`)) {
+    if (!hasCoordinates(subAreaCells, currentCellCoordinates.x, currentCellCoordinates.y + 1)) {
         drawStroke(
             context,
             { x: cellPositionX, y: cellPositionY + CELL_SIZE },
             { x: cellPositionX + CELL_SIZE, y: cellPositionY + CELL_SIZE },
         );
     }
+}
+
+function hasCoordinates(subAreaCells: Set<string>, x: number, y: number) {
+    return subAreaCells.has(`${x},${y}`);
 }
 
 function drawStroke(context: CanvasRenderingContext2D, start: Coordinates, end: Coordinates) {

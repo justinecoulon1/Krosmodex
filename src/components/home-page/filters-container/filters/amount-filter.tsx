@@ -1,5 +1,5 @@
 import styles from '../filters.module.css';
-import { CustomNumberInput } from '../../../custom-components/custom-inputs';
+import { CustomNumberInput } from '../../../custom-components/custom-inputs/custom-inputs';
 
 export default function AmountFilter({
     searchedMonsterAmount,

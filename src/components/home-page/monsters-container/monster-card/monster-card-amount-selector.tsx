@@ -2,7 +2,7 @@ import { MetamobMonsterDto } from '../../../../utils/api/dto/metamob.dto';
 import { useState } from 'react';
 import styles from './monster-card.module.css';
 import { Minus, Plus } from 'lucide-react';
-import { CustomNumberInput } from '../../../custom-components/custom-inputs';
+import { CustomNumberInput } from '../../../custom-components/custom-inputs/custom-inputs';
 import { useMetamobMonstersContext } from '../../../../contexts/metamob-monsters-context';
 import { useMetamobMonstersQuery } from '../../../../utils/api/metamob.queries';
 

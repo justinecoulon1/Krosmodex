@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getLocalStorageItem, setLocalStorageItem } from '../../utils/local-storage/local-storage.utils';
 import styles from './settings-page.module.css';
-import { CustomTextInput } from '../custom-components/custom-inputs';
+import { CustomTextInput } from '../custom-components/custom-inputs/custom-inputs';
 import { useMetamobMonstersContext } from '../../contexts/metamob-monsters-context';
 import { MoonLoader } from 'react-spinners';
 import { Check, X } from 'lucide-react';
