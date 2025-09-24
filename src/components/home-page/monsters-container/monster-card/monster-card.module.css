@@ -25,6 +25,12 @@
             padding: 0.2rem;
         }
 
+        .clipboardButton {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .monstre {
             background: radial-gradient(circle closest-side, dodgerblue 85%, var(--primary) 95%);
         }
@@ -37,6 +43,7 @@
 
         .monsterName {
             display: -webkit-box;
+            width: 100%;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;

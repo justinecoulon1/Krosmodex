@@ -3,8 +3,8 @@ import mapData from '../../../utils/sub_areas.json';
 import styles from './map-canvas.module.css';
 import { drawSubArea, getCellSubArea, getMapCoordinates, SubArea } from './map-canvas.utils';
 import { CELL_SIZE, GREYED_AREAS, MAP_HEIGHT, MAP_WIDTH, MIN_X, MIN_Y } from './map-canvas-constants';
-import { TransformComponent, TransformWrapper, useControls } from 'react-zoom-pan-pinch';
-import { Crosshair } from 'lucide-react';
+import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
+import CenterButton from './center-button/center-button';
 
 export default function MapGrid({
     onAreaSelected,
@@ -71,18 +71,6 @@ export default function MapGrid({
                     />
                 </TransformComponent>
             </TransformWrapper>
-        </div>
-    );
-}
-
-function CenterButton() {
-    const { resetTransform } = useControls();
-
-    return (
-        <div className={styles.centerButtonContainer}>
-            <button onClick={() => resetTransform()}>
-                <Crosshair />
-            </button>
         </div>
     );
 }

@@ -1,0 +1,7 @@
+.centerButtonContainer {
+    display: flex;
+    height: fit-content;
+    width: fit-content;
+    position: absolute;
+    z-index: 1;
+}
