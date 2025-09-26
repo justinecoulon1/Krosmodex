@@ -1,6 +1,6 @@
 {
-  "name": "filesharetoolfront2",
-  "productName": "filesharetoolfront2",
+  "name": "krosmodex",
+  "productName": "krosmodex",
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": ".vite/build/main.js",
