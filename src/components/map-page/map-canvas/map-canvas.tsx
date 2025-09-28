@@ -51,26 +51,28 @@ export default function MapGrid({
     }, [mapData, CELL_SIZE]);
 
     return (
-        <div style={{ overflow: 'hidden' }}>
-            <TransformWrapper
-                wheel={{ disabled: true }}
-                pinch={{ disabled: true }}
-                doubleClick={{ disabled: true }}
-                limitToBounds={false}
-                centerOnInit={true}
-            >
-                <CenterButton />
-                <TransformComponent>
-                    <canvas
-                        className={styles.canvas}
-                        width={MAP_WIDTH}
-                        height={MAP_HEIGHT}
-                        ref={canvasRef}
-                        onClick={handleCanvasClick}
-                        onMouseMove={handleMouseMove}
-                    />
-                </TransformComponent>
-            </TransformWrapper>
+        <div className={styles.mapGridContainer}>
+            <div style={{ overflow: 'hidden' }}>
+                <TransformWrapper
+                    wheel={{ disabled: true }}
+                    pinch={{ disabled: true }}
+                    doubleClick={{ disabled: true }}
+                    limitToBounds={false}
+                    centerOnInit={true}
+                >
+                    <CenterButton />
+                    <TransformComponent>
+                        <canvas
+                            className={styles.canvas}
+                            width={MAP_WIDTH}
+                            height={MAP_HEIGHT}
+                            ref={canvasRef}
+                            onClick={handleCanvasClick}
+                            onMouseMove={handleMouseMove}
+                        />
+                    </TransformComponent>
+                </TransformWrapper>
+            </div>
         </div>
     );
 }

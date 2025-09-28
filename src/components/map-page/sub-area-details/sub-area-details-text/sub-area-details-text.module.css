@@ -1,0 +1,15 @@
+.subAreaDetailsTextContainer {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    height: 8rem;
+    padding: 1rem;
+
+    border-bottom: 2px solid var(--primary-lighter);
+}
+
+.importantText {
+    color: var(--secondary-dark);
+    font-weight: bold;
+}

@@ -2,6 +2,7 @@ import styles from './map-page.module.css';
 import MapGrid from './map-canvas/map-canvas';
 import { useState } from 'react';
 import { SubArea } from './map-canvas/map-canvas.utils';
+import SubAreaDetailsContainer from './sub-area-details/sub-area-details-container';
 
 export default function MapPageContainer() {
     const [selectedArea, setSelectedArea] = useState<SubArea | null>();
@@ -16,19 +17,8 @@ export default function MapPageContainer() {
 
     return (
         <div className={styles.mapPageContainer}>
-            <div className={styles.mapGridContainer}>
-                <MapGrid onAreaSelected={onAreaSelected} onAreaHovered={onAreaHovered} />
-            </div>
-            <div className={styles.subAreaDetailsContainer}>
-                <div className={styles.hoveredSubAreaDetailsContainer}>
-                    <h3>Sous-zone survolée :</h3>
-                    {hoveredArea ? <p>{hoveredArea.subAreaName}</p> : 'Aucune sous-zone survolée'}
-                </div>
-                <div className={styles.selectedSubAreaDetailsContainer}>
-                    <h3>Sous-zone sélectionnée :</h3>
-                    {selectedArea ? <p>{selectedArea.subAreaName}</p> : 'Aucune sous-zone sélectionnée'}
-                </div>
-            </div>
+            <MapGrid onAreaSelected={onAreaSelected} onAreaHovered={onAreaHovered} />
+            <SubAreaDetailsContainer hoveredArea={hoveredArea || null} selectedArea={selectedArea || null} />
         </div>
     );
 }
