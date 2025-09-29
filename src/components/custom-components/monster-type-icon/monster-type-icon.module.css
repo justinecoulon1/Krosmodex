@@ -1,0 +1,19 @@
+.monsterTypeIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1.5rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    padding: 0.2rem;
+}
+
+.monstre {
+    background: radial-gradient(circle closest-side, dodgerblue 85%, var(--primary) 95%);
+}
+.archimonstre {
+    background: radial-gradient(circle closest-side, orange 85%, var(--primary) 95%);
+}
+.boss {
+    background: radial-gradient(circle closest-side, indianred 95%, var(--primary) 95%);
+}

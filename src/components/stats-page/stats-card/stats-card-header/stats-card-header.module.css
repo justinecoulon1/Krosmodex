@@ -6,4 +6,9 @@
     padding: 0.5rem;
 
     border-bottom: 2px var(--primary-light) solid;
+
+    .statsCardOcreLogo {
+        width: 2rem;
+        aspect-ratio: 1;
+    }
 }

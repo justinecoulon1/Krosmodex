@@ -4,6 +4,7 @@ import { CircularProgressBar } from '../../../custom-components/circular-progres
 export default function StatsCardHeader({ ocreNumber, gaugeValue }: { ocreNumber: number; gaugeValue: number }) {
     return (
         <div className={styles.statsCardHeader}>
+            <img src={'./ocre.png'} alt={'ocre'} className={styles.statsCardOcreLogo} />
             <h4>Ocre {ocreNumber}</h4>
             <CircularProgressBar
                 value={gaugeValue}
