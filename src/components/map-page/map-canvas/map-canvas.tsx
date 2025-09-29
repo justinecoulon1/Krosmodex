@@ -2,18 +2,22 @@ import { MouseEvent, useEffect, useRef } from 'react';
 import mapData from '../../../utils/sub_areas.json';
 import styles from './map-canvas.module.css';
 import { drawSubArea, getCellSubArea, getMapCoordinates, SubArea } from './map-canvas.utils';
-import { CELL_SIZE, GREYED_AREAS, MAP_HEIGHT, MAP_WIDTH, MIN_X, MIN_Y } from './map-canvas-constants';
+import { CELL_SIZE, GREYED_AREAS, MAP_HEIGHT, MAP_WIDTH, REDRAW_PERIOD } from './map-canvas-constants';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 import CenterButton from './center-button/center-button';
+import { useExplorationContext } from '../../../contexts/exploration-context';
 
 export default function MapGrid({
     onAreaSelected,
     onAreaHovered,
+    onAreaRightClicked,
 }: {
     onAreaSelected: (newSelectedArea: SubArea | null) => void;
     onAreaHovered: (newHoveredArea: SubArea | null) => void;
+    onAreaRightClicked: (newExploredArea: SubArea) => void;
 }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const { subAreaLastExplorationTimeById } = useExplorationContext();
 
     const handleCanvasClick = (e: MouseEvent<HTMLCanvasElement>) => {
         const mapCoordinates = getMapCoordinates(e);
@@ -36,6 +40,13 @@ export default function MapGrid({
         }
     };
 
+    const handleRightClick = (e: MouseEvent<HTMLCanvasElement>) => {
+        const mapCoordinates = getMapCoordinates(e);
+        const clickedArea = getCellSubArea(mapCoordinates);
+        if (!clickedArea || GREYED_AREAS.includes(clickedArea.subAreaId)) return;
+        onAreaRightClicked(clickedArea);
+    };
+
     useEffect(() => {
         const canvas = canvasRef.current;
         const context = canvas?.getContext('2d');
@@ -45,34 +56,46 @@ export default function MapGrid({
         canvas.height = MAP_HEIGHT;
         context.clearRect(0, 0, MAP_WIDTH, MAP_HEIGHT);
 
-        mapData.forEach((subArea) => {
-            drawSubArea(context, subArea, MIN_X, MIN_Y);
-        });
-    }, [mapData, CELL_SIZE]);
+        const drawSubAreas = () => {
+            const currentTime = Date.now();
+            mapData.forEach((subArea) => {
+                drawSubArea(context, subArea, subAreaLastExplorationTimeById, currentTime);
+            });
+        };
+
+        drawSubAreas();
+        const drawInterval = setInterval(() => {
+            drawSubAreas();
+        }, REDRAW_PERIOD);
+
+        return () => {
+            clearInterval(drawInterval);
+        };
+    }, [mapData, subAreaLastExplorationTimeById, CELL_SIZE]);
 
     return (
         <div className={styles.mapGridContainer}>
-            <div style={{ overflow: 'hidden' }}>
-                <TransformWrapper
-                    wheel={{ disabled: true }}
-                    pinch={{ disabled: true }}
-                    doubleClick={{ disabled: true }}
-                    limitToBounds={false}
-                    centerOnInit={true}
-                >
-                    <CenterButton />
-                    <TransformComponent>
-                        <canvas
-                            className={styles.canvas}
-                            width={MAP_WIDTH}
-                            height={MAP_HEIGHT}
-                            ref={canvasRef}
-                            onClick={handleCanvasClick}
-                            onMouseMove={handleMouseMove}
-                        />
-                    </TransformComponent>
-                </TransformWrapper>
-            </div>
+            <TransformWrapper
+                wheel={{ disabled: true }}
+                pinch={{ disabled: true }}
+                doubleClick={{ disabled: true }}
+                panning={{ velocityDisabled: true }}
+                centerOnInit={false}
+                limitToBounds={false}
+            >
+                <CenterButton />
+                <TransformComponent wrapperStyle={{ width: '100%', height: '100%' }}>
+                    <canvas
+                        className={styles.canvas}
+                        width={MAP_WIDTH}
+                        height={MAP_HEIGHT}
+                        ref={canvasRef}
+                        onClick={handleCanvasClick}
+                        onMouseMove={handleMouseMove}
+                        onAuxClick={handleRightClick}
+                    />
+                </TransformComponent>
+            </TransformWrapper>
         </div>
     );
 }

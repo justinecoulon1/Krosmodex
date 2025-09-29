@@ -17,7 +17,17 @@ export const UNDERGROUND_AREAS = [
 ];
 export const MAP_WIDTH = (MAX_X - MIN_X + 1) * CELL_SIZE;
 export const MAP_HEIGHT = (MAX_Y - MIN_Y + 1) * CELL_SIZE;
-export const MAP_GREYED_AREAS_COLOR = '#c8c8c8';
-export const MAP_COLOR = '#ffecaf';
+export const MAP_GREYED_AREAS_COLOR = '#777777';
+export const MAP_COLOR = '#ff8000';
+export const MAP_COLOR_R = parseInt(MAP_COLOR.slice(1, 3), 16);
+export const MAP_COLOR_G = parseInt(MAP_COLOR.slice(3, 5), 16);
+export const MAP_COLOR_B = parseInt(MAP_COLOR.slice(5, 7), 16);
+export const EXPLORED_MAP_COLOR = '#ffe9a1';
+export const EXPLORED_MAP_COLOR_R = parseInt(EXPLORED_MAP_COLOR.slice(1, 3), 16);
+export const EXPLORED_MAP_COLOR_G = parseInt(EXPLORED_MAP_COLOR.slice(3, 5), 16);
+export const EXPLORED_MAP_COLOR_B = parseInt(EXPLORED_MAP_COLOR.slice(5, 7), 16);
 export const MAP_BORDER_COLOR = '#000000';
 export const MAP_BORDER_WIDTH = 1;
+
+export const MAX_EXPLORATION_TIME = 60 * 60 * 1000;
+export const REDRAW_PERIOD = 10_000;

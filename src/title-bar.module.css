@@ -4,7 +4,7 @@
     height: 3.5rem;
     align-items: center;
     padding: 0 0.5rem;
-    background-color: var(--primary-darker);
+    background-color: var(--primary-darkest);
     gap: 1rem;
 
     .logo {
@@ -19,7 +19,7 @@
     }
 }
 
-.mainContainer{
-    display:flex;
-    height:100%;
+.mainContainer {
+    display: flex;
+    height: 100%;
 }

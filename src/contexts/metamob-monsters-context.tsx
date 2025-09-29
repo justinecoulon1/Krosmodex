@@ -21,7 +21,7 @@ export type MetamobMonstersContextType = {
     checkMetamobConnectionMutation: UseMutationResult<void, Error, void, unknown>;
 };
 
-const MetamobMonstersContext = createContext<MetamobMonstersContextType>({} as MetamobMonstersContextType);
+const MetamobMonstersContext = createContext<MetamobMonstersContextType | undefined>(undefined);
 
 export function useMetamobMonstersContext(): MetamobMonstersContextType {
     const context = useContext(MetamobMonstersContext);

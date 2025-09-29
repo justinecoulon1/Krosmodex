@@ -1,6 +1,6 @@
 .tooltipContainer .tooltip {
     padding: 0.7rem;
     border-radius: 10px;
-    background-color: var(--primary-darker);
+    background-color: var(--primary-darkest);
     color: var(--secondary-light);
 }

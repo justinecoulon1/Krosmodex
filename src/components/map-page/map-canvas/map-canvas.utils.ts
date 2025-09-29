@@ -1,10 +1,16 @@
 import {
     CELL_SIZE,
+    EXPLORED_MAP_COLOR_B,
+    EXPLORED_MAP_COLOR_G,
+    EXPLORED_MAP_COLOR_R,
     GREYED_AREAS,
     MAP_BORDER_COLOR,
     MAP_BORDER_WIDTH,
-    MAP_COLOR,
+    MAP_COLOR_B,
+    MAP_COLOR_G,
+    MAP_COLOR_R,
     MAP_GREYED_AREAS_COLOR,
+    MAX_EXPLORATION_TIME,
     MIN_X,
     MIN_Y,
     UNDERGROUND_AREAS,
@@ -40,20 +46,32 @@ export function getCellSubArea(searchedCoordinates: Coordinates) {
     );
 }
 
-export function drawSubArea(context: CanvasRenderingContext2D, subArea: SubArea, minX: number, minY: number) {
+export function drawSubArea(
+    context: CanvasRenderingContext2D,
+    subArea: SubArea,
+    subAreaLastExplorationTimeById: Map<number, number>,
+    currentTime: number,
+) {
     const subAreaCells = new Set(subArea.subAreaCoordinates.map((coord) => `${coord.x},${coord.y}`));
+    const lastExplorationTime = subAreaLastExplorationTimeById.get(subArea.subAreaId) ?? 0;
+    const timeSinceLastExploration = currentTime - lastExplorationTime;
 
     subArea.subAreaCoordinates.forEach((cell) => {
         const currentCellCoordinates = { x: cell.x, y: cell.y };
 
-        const cellPositionX = (currentCellCoordinates.x - minX) * CELL_SIZE;
-        const cellPositionY = (currentCellCoordinates.y - minY) * CELL_SIZE;
+        const cellPositionX = (currentCellCoordinates.x - MIN_X) * CELL_SIZE;
+        const cellPositionY = (currentCellCoordinates.y - MIN_Y) * CELL_SIZE;
 
         if (!UNDERGROUND_AREAS.includes(subArea.subAreaId)) {
             if (GREYED_AREAS.includes(subArea.subAreaId)) {
                 context.fillStyle = MAP_GREYED_AREAS_COLOR;
             } else {
-                context.fillStyle = MAP_COLOR;
+                const ratio =
+                    Math.max(0, Math.min(MAX_EXPLORATION_TIME, timeSinceLastExploration)) / MAX_EXPLORATION_TIME;
+                const r = EXPLORED_MAP_COLOR_R + (MAP_COLOR_R - EXPLORED_MAP_COLOR_R) * ratio;
+                const g = EXPLORED_MAP_COLOR_G + (MAP_COLOR_G - EXPLORED_MAP_COLOR_G) * ratio;
+                const b = EXPLORED_MAP_COLOR_B + (MAP_COLOR_B - EXPLORED_MAP_COLOR_B) * ratio;
+                context.fillStyle = `rgb(${r},${g},${b})`;
             }
             context.fillRect(cellPositionX, cellPositionY, CELL_SIZE, CELL_SIZE);
             context.fillStyle = MAP_BORDER_COLOR;

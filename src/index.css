@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Electrolize&display=swap');
 
 :root {
-    --primary-darker: #212125;
+    --primary-darkest: #212125;
+    --primary-darker: #28292e;
     --primary-dark: #2d2e33;
     --primary: #393b41;
     --primary-light: #41444b;
