@@ -15,7 +15,6 @@ import {
     MIN_Y,
     UNDERGROUND_AREAS,
 } from './map-canvas-constants';
-import mapData from '../../../utils/sub_areas.json';
 import { MouseEvent } from 'react';
 
 export type Coordinates = { x: number; y: number };
@@ -40,8 +39,8 @@ export function getMapCoordinates(e: MouseEvent<HTMLCanvasElement>) {
     return { x: cellX + MIN_X, y: cellY + MIN_Y };
 }
 
-export function getCellSubArea(searchedCoordinates: Coordinates) {
-    return mapData.find((area) =>
+export function getCellSubArea(displayedAreas: SubArea[], searchedCoordinates: Coordinates) {
+    return displayedAreas.find((area) =>
         area.subAreaCoordinates.some((coord) => coord.x === searchedCoordinates.x && coord.y === searchedCoordinates.y),
     );
 }

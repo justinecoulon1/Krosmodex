@@ -1,4 +1,4 @@
-import { ArrowLeftRight, Book, ChartNoAxesCombined, Map, Settings } from 'lucide-react';
+import { Archive, ArrowLeftRight, ChartNoAxesCombined, Map, Settings } from 'lucide-react';
 import SideBarTab from './side-bar-tab';
 import styles from './side-bar.module.css';
 import React, { ComponentType } from 'react';
@@ -9,7 +9,7 @@ type Tab = {
 };
 
 const tabs: Tab[] = [
-    { path: '/', icon: Book },
+    { path: '/', icon: Archive },
     { path: '/stats', icon: ChartNoAxesCombined },
     { path: '/map', icon: Map },
     { path: '/trade', icon: ArrowLeftRight },

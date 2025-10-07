@@ -17,18 +17,18 @@ export default function MapGrid({
     onAreaRightClicked: (newExploredArea: SubArea) => void;
 }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const { subAreaLastExplorationTimeById } = useExplorationContext();
+    const { subAreaLastExplorationTimeById, displayedAreas } = useExplorationContext();
 
     const handleCanvasClick = (e: MouseEvent<HTMLCanvasElement>) => {
         const mapCoordinates = getMapCoordinates(e);
-        const clickedArea = getCellSubArea(mapCoordinates);
+        const clickedArea = getCellSubArea(displayedAreas, mapCoordinates);
 
         onAreaSelected(clickedArea || null);
     };
 
     const handleMouseMove = (e: MouseEvent<HTMLCanvasElement>) => {
         const mapCoordinates = getMapCoordinates(e);
-        const hoveredArea = getCellSubArea(mapCoordinates);
+        const hoveredArea = getCellSubArea(displayedAreas, mapCoordinates);
         onAreaHovered(hoveredArea || null);
 
         if (canvasRef.current) {
@@ -42,7 +42,7 @@ export default function MapGrid({
 
     const handleRightClick = (e: MouseEvent<HTMLCanvasElement>) => {
         const mapCoordinates = getMapCoordinates(e);
-        const clickedArea = getCellSubArea(mapCoordinates);
+        const clickedArea = getCellSubArea(displayedAreas, mapCoordinates);
         if (!clickedArea || GREYED_AREAS.includes(clickedArea.subAreaId)) return;
         onAreaRightClicked(clickedArea);
     };
@@ -58,7 +58,7 @@ export default function MapGrid({
 
         const drawSubAreas = () => {
             const currentTime = Date.now();
-            mapData.forEach((subArea) => {
+            displayedAreas.forEach((subArea) => {
                 drawSubArea(context, subArea, subAreaLastExplorationTimeById, currentTime);
             });
         };

@@ -15,6 +15,7 @@ export const GREYED_AREAS = [
 export const UNDERGROUND_AREAS = [
     7, 25, 99, 100, 181, 200, 315, 316, 319, 461, 468, 469, 472, 492, 495, 816, 985, 1011,
 ];
+export const OVERWORLD_AREAS = mapData.filter(({ subAreaId }) => !UNDERGROUND_AREAS.includes(subAreaId));
 export const MAP_WIDTH = (MAX_X - MIN_X + 1) * CELL_SIZE;
 export const MAP_HEIGHT = (MAX_Y - MIN_Y + 1) * CELL_SIZE;
 export const MAP_GREYED_AREAS_COLOR = '#777777';

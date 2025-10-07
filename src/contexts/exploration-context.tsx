@@ -1,11 +1,14 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
 import { SubArea } from '../components/map-page/map-canvas/map-canvas.utils';
+import { OVERWORLD_AREAS } from '../components/map-page/map-canvas/map-canvas-constants';
 
 export type ExplorationContextType = {
     selectedArea: SubArea | null;
     setSelectedArea: (newSelectedArea: SubArea | null) => void;
     subAreaLastExplorationTimeById: Map<number, number>;
     exploreSubArea: (newExploredArea: SubArea) => void;
+    displayedAreas: SubArea[];
+    setDisplayedAreas: (newDisplayedAreas: SubArea[]) => void;
 };
 
 const ExplorationContext = createContext<ExplorationContextType | undefined>(undefined);
@@ -26,12 +29,15 @@ export function ExplorationProvider({ children }: { children: ReactNode }) {
     const exploreSubArea = (newExploredArea: SubArea) => {
         setSubAreaLastExplorationTimeById((oldValue) => new Map(oldValue.set(newExploredArea.subAreaId, Date.now())));
     };
+    const [displayedAreas, setDisplayedAreas] = useState<SubArea[]>(OVERWORLD_AREAS);
 
     return (
         <ExplorationContext.Provider
             value={{
                 selectedArea,
                 setSelectedArea,
+                displayedAreas,
+                setDisplayedAreas,
                 subAreaLastExplorationTimeById,
                 exploreSubArea,
             }}
