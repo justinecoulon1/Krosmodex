@@ -4,7 +4,7 @@ import styles from './map-canvas.module.css';
 import { drawSubArea, getCellSubArea, getMapCoordinates, SubArea } from './map-canvas.utils';
 import { CELL_SIZE, GREYED_AREAS, MAP_HEIGHT, MAP_WIDTH, REDRAW_PERIOD } from './map-canvas-constants';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
-import CenterButton from './center-button/center-button';
+import MapButtonsContainer from './map-buttons-container/map-buttons-container';
 import { useExplorationContext } from '../../../contexts/exploration-context';
 
 export default function MapGrid({
@@ -17,7 +17,7 @@ export default function MapGrid({
     onAreaRightClicked: (newExploredArea: SubArea) => void;
 }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const { subAreaLastExplorationTimeById, displayedAreas } = useExplorationContext();
+    const { subAreaLastExplorationTimeById, displayedAreas, currentWorldMap } = useExplorationContext();
 
     const handleCanvasClick = (e: MouseEvent<HTMLCanvasElement>) => {
         const mapCoordinates = getMapCoordinates(e);
@@ -71,7 +71,7 @@ export default function MapGrid({
         return () => {
             clearInterval(drawInterval);
         };
-    }, [mapData, subAreaLastExplorationTimeById, CELL_SIZE]);
+    }, [mapData, subAreaLastExplorationTimeById, CELL_SIZE, currentWorldMap]);
 
     return (
         <div className={styles.mapGridContainer}>
@@ -83,7 +83,7 @@ export default function MapGrid({
                 centerOnInit={false}
                 limitToBounds={false}
             >
-                <CenterButton />
+                <MapButtonsContainer />
                 <TransformComponent wrapperStyle={{ width: '100%', height: '100%' }}>
                     <canvas
                         className={styles.canvas}

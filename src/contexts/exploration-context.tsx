@@ -2,6 +2,8 @@ import { createContext, ReactNode, useContext, useState } from 'react';
 import { SubArea } from '../components/map-page/map-canvas/map-canvas.utils';
 import { OVERWORLD_AREAS } from '../components/map-page/map-canvas/map-canvas-constants';
 
+export type WorldMap = 'overworld' | 'underground';
+
 export type ExplorationContextType = {
     selectedArea: SubArea | null;
     setSelectedArea: (newSelectedArea: SubArea | null) => void;
@@ -9,6 +11,8 @@ export type ExplorationContextType = {
     exploreSubArea: (newExploredArea: SubArea) => void;
     displayedAreas: SubArea[];
     setDisplayedAreas: (newDisplayedAreas: SubArea[]) => void;
+    currentWorldMap: WorldMap;
+    setCurrentWorldMap: (newWorldMap: WorldMap) => void;
 };
 
 const ExplorationContext = createContext<ExplorationContextType | undefined>(undefined);
@@ -30,6 +34,7 @@ export function ExplorationProvider({ children }: { children: ReactNode }) {
         setSubAreaLastExplorationTimeById((oldValue) => new Map(oldValue.set(newExploredArea.subAreaId, Date.now())));
     };
     const [displayedAreas, setDisplayedAreas] = useState<SubArea[]>(OVERWORLD_AREAS);
+    const [currentWorldMap, setCurrentWorldMap] = useState<WorldMap>('overworld');
 
     return (
         <ExplorationContext.Provider
@@ -40,6 +45,8 @@ export function ExplorationProvider({ children }: { children: ReactNode }) {
                 setDisplayedAreas,
                 subAreaLastExplorationTimeById,
                 exploreSubArea,
+                currentWorldMap,
+                setCurrentWorldMap,
             }}
         >
             {children}

@@ -13,7 +13,6 @@ import {
     MAX_EXPLORATION_TIME,
     MIN_X,
     MIN_Y,
-    UNDERGROUND_AREAS,
 } from './map-canvas-constants';
 import { MouseEvent } from 'react';
 
@@ -61,21 +60,18 @@ export function drawSubArea(
         const cellPositionX = (currentCellCoordinates.x - MIN_X) * CELL_SIZE;
         const cellPositionY = (currentCellCoordinates.y - MIN_Y) * CELL_SIZE;
 
-        if (!UNDERGROUND_AREAS.includes(subArea.subAreaId)) {
-            if (GREYED_AREAS.includes(subArea.subAreaId)) {
-                context.fillStyle = MAP_GREYED_AREAS_COLOR;
-            } else {
-                const ratio =
-                    Math.max(0, Math.min(MAX_EXPLORATION_TIME, timeSinceLastExploration)) / MAX_EXPLORATION_TIME;
-                const r = EXPLORED_MAP_COLOR_R + (MAP_COLOR_R - EXPLORED_MAP_COLOR_R) * ratio;
-                const g = EXPLORED_MAP_COLOR_G + (MAP_COLOR_G - EXPLORED_MAP_COLOR_G) * ratio;
-                const b = EXPLORED_MAP_COLOR_B + (MAP_COLOR_B - EXPLORED_MAP_COLOR_B) * ratio;
-                context.fillStyle = `rgb(${r},${g},${b})`;
-            }
-            context.fillRect(cellPositionX, cellPositionY, CELL_SIZE, CELL_SIZE);
-            context.fillStyle = MAP_BORDER_COLOR;
-            drawBorder(context, subAreaCells, currentCellCoordinates, cellPositionX, cellPositionY);
+        if (GREYED_AREAS.includes(subArea.subAreaId)) {
+            context.fillStyle = MAP_GREYED_AREAS_COLOR;
+        } else {
+            const ratio = Math.max(0, Math.min(MAX_EXPLORATION_TIME, timeSinceLastExploration)) / MAX_EXPLORATION_TIME;
+            const r = EXPLORED_MAP_COLOR_R + (MAP_COLOR_R - EXPLORED_MAP_COLOR_R) * ratio;
+            const g = EXPLORED_MAP_COLOR_G + (MAP_COLOR_G - EXPLORED_MAP_COLOR_G) * ratio;
+            const b = EXPLORED_MAP_COLOR_B + (MAP_COLOR_B - EXPLORED_MAP_COLOR_B) * ratio;
+            context.fillStyle = `rgb(${r},${g},${b})`;
         }
+        context.fillRect(cellPositionX, cellPositionY, CELL_SIZE, CELL_SIZE);
+        context.fillStyle = MAP_BORDER_COLOR;
+        drawBorder(context, subAreaCells, currentCellCoordinates, cellPositionX, cellPositionY);
     });
 }
 

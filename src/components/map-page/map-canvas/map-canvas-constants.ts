@@ -1,4 +1,5 @@
 import mapData from '../../../utils/sub_areas.json';
+import { SubArea } from './map-canvas.utils';
 
 export const ALL_SUB_AREA_COORDS = mapData.flatMap((area) => area.subAreaCoordinates);
 export const MIN_X = Math.min(...ALL_SUB_AREA_COORDS.map((coord) => coord.x));
@@ -12,10 +13,13 @@ export const GREYED_AREAS = [
     1031, 1031, 320, 757, 758, 762, 763, 764, 765, 766, 773, 774, 809, 967,
 ];
 
-export const UNDERGROUND_AREAS = [
+export const UNDERGROUND_AREAS_IDS = [
     7, 25, 99, 100, 181, 200, 315, 316, 319, 461, 468, 469, 472, 492, 495, 816, 985, 1011,
 ];
-export const OVERWORLD_AREAS = mapData.filter(({ subAreaId }) => !UNDERGROUND_AREAS.includes(subAreaId));
+export const OVERWORLD_AREAS: SubArea[] = mapData.filter(({ subAreaId }) => !UNDERGROUND_AREAS_IDS.includes(subAreaId));
+export const UNDERGROUND_AREAS: SubArea[] = mapData.filter(({ subAreaId }) =>
+    UNDERGROUND_AREAS_IDS.includes(subAreaId),
+);
 export const MAP_WIDTH = (MAX_X - MIN_X + 1) * CELL_SIZE;
 export const MAP_HEIGHT = (MAX_Y - MIN_Y + 1) * CELL_SIZE;
 export const MAP_GREYED_AREAS_COLOR = '#777777';

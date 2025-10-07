@@ -1,0 +1,6 @@
+.mapButtonsContainer {
+    display: flex;
+    position: absolute;
+    z-index: 1;
+    gap: 0.5rem;
+}
